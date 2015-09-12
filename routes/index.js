@@ -15,4 +15,8 @@ exports = module.exports = function (app) {
   app.put('/openboard/widgets/:id', widgets.update);
   app.del('/openboard/widgets/:id', widgets.destroy);
 
+  app.get('/openboard/me', function (req, res) {
+    res.send(req.ntlm);
+  });
+
 };

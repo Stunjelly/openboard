@@ -6,6 +6,7 @@ var methodOverride = require('method-override');
 var morgan = require('morgan');
 var http = require('http');
 var path = require('path');
+var ntlm = require('express-ntlm');
 var db = require('./models');
 
 
@@ -21,9 +22,13 @@ app.use(methodOverride());
 app.use(express.static(path.join(__dirname, process.env.NODE_ENV === 'development' ? 'public' : 'public/_dist')));
 
 // development only
-if ('development' === app.get('env')) {
+if (process.env.NODE_ENV === 'development') {
   app.use(express.static(path.join(__dirname, 'public')));
   app.use(errorHandler())
+}
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(ntlm({domain: process.env.LDAP_DOMAIN, domaincontroller: process.env.LDAP_CONTROLLLER}));
 }
 
 require('./routes')(app);
