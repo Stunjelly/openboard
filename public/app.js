@@ -1,4 +1,4 @@
-angular.module('openboard', ['ui.bootstrap', 'ui.utils', 'ui.router', 'ngAnimate']);
+angular.module('openboard', ['ui.bootstrap', 'ui.utils', 'ui.router', 'ngAnimate', 'ngResource']);
 
 angular.module('openboard').config(function ($stateProvider, $urlRouterProvider) {
 

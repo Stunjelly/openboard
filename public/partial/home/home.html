@@ -1,22 +1,38 @@
 <div ng-controller="HomeCtrl">
   <div class="container home-page">
-    <h2 class="mt0">welcome to openboard</h2>
+    <h1 class="text-center">openboard</h1>
+    <p class="text-center">authenticated as <strong>{{user.UserName || 'anon'}}</strong></p>
     <div class="panel panel-default">
       <div class="panel-body">
-        <label for="">Launch an existing board</label>
-        <div class="form-group">
-          <a href="">My Board</a>
-        </div>
-        <label for="">Create a new board</label>
-        <div class="form-inline">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="My Teams Board"/>
+
+        <div class="row">
+          <div class="col-md-6">
+            <label for="">Launch an existing board</label>
+
+            <div class="form-group">
+              <ul class="list-unstyled">
+                <li ng-repeat="dashboard in dashboards track by dashboard.id">
+                  <a href="">{{dashboard.title}}</a>
+                </li>
+              </ul>
+            </div>
           </div>
-          <button class="btn btn-primary">Create</button>
+          <div class="col-md-6">
+            <label for="">Create a new board</label>
+
+            <div class="form-inline">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="My Teams Board"/>
+              </div>
+              <button class="btn btn-primary">Create</button>
+            </div>
+          </div>
         </div>
+
+
       </div>
     </div>
-    <p class="text-muted">
+    <p class="text-muted text-center">
       <small>an app by stunjelly</small>
     </p>
   </div>
