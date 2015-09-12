@@ -8,13 +8,30 @@ Uses Windows Challenge/Response (NTLM) for authentication and a MySQL database.
 ```
 npm install
 bower install
+grunt build
 npm start
 ```
+
+Visit http://localhost:3000
 
 ## Client
 
 The front end is powered by AngularJS. Grunt builds the production code into `./public/dist`, during development 
 express will always route static content to `./public`.
+
+## Setting up environment
+
+Create a `.env` file in the root and fill the example config below
+
+```
+MYSQL_DB=openboard
+MYSQL_HOST=localhost
+MYSQL_USER=root
+MYSQL_PASS=root
+LDAP_DOMAIN=national
+LDAP_CONTROLLER=ldap://national.example.gov.uk
+
+```
 
 #### Technology
 
