@@ -23,11 +23,12 @@ app.use(express.static(path.join(__dirname, process.env.NODE_ENV === 'developmen
 
 // development only
 if (process.env.NODE_ENV === 'development') {
-  app.use(express.static(path.join(__dirname, 'public')));
-  app.use(errorHandler())
-}
-
-if (process.env.NODE_ENV === 'development') {
+  app.use(errorHandler());
+  app.use(function (req, res, next) {
+    req.ntlm = {"DomainName": "national", "UserName": process.env.DEV_USERNAME || "testUser", "Workstation": "stunjelly"};
+    next();
+  });
+} else {
   app.use(ntlm({domain: process.env.LDAP_DOMAIN, domaincontroller: process.env.LDAP_CONTROLLLER}));
 }
 
