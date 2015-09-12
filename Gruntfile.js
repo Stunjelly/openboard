@@ -1,116 +1,261 @@
+/*jslint node: true */
 'use strict';
 
-var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
+var pkg = require('./package.json');
+var path = require('path');
+
+//Using exclusion patterns slows down Grunt significantly
+//instead of creating a set of patterns like '**/*.js' and '!**/node_modules/**'
+//this method is used to create a set of inclusive patterns for all subdirectories
+//skipping node_modules, bower_components, _dist, and any .dirs
+//This enables users to create any directory structure they desire.
+var createFolderGlobs = function (fileTypePatterns) {
+  fileTypePatterns = Array.isArray(fileTypePatterns) ? fileTypePatterns : [fileTypePatterns];
+  var ignore = ['node_modules', 'bower_components', '_dist', 'temp'];
+  var fs = require('fs');
+  return fs.readdirSync(path.join(process.cwd(), ''))
+    .map(function (file) {
+      if (ignore.indexOf(file) !== -1 ||
+        file.indexOf('.') === 0 || !fs.lstatSync(file).isDirectory()) {
+        return null;
+      } else {
+        return fileTypePatterns.map(function (pattern) {
+          return file + '/**/' + pattern;
+        });
+      }
+    })
+    .filter(function (patterns) {
+      return patterns;
+    })
+    .concat(fileTypePatterns);
+};
 
 module.exports = function (grunt) {
-  require('load-grunt-tasks')(grunt);
-  require('time-grunt')(grunt);
 
+  // load all grunt tasks
+  require('load-grunt-tasks')(grunt);
+
+  // Project configuration.
   grunt.initConfig({
-    yeoman   : {
-      // configurable paths
-      app : require('./bower.json').appPath || 'public',
-      dist: 'public'
-    },
-    sync     : {
-      dist: {
-        files: [{
-          cwd : '<%= yeoman.app %>',
-          dest: '<%= yeoman.dist %>',
-          src : '**'
-        }]
-      }
-    },
-    watch    : {
-      options: {
-        livereload: 35729
-      },
-      src    : {
-        files: [
-          '<%= yeoman.app %>/*.html',
-          '<%= yeoman.app %>/css/**/*',
-          '<%= yeoman.app %>/js/**/*',
-          '<%= yeoman.app %>/views/**/*'
-        ],
-        //tasks: ['sync:dist']
-      }
-    },
-    connect  : {
-      proxies   : [
-        {
-          context     : '/openboard',
-          host        : 'localhost',
-          port        : 3000,
-          https       : false,
-          changeOrigin: false
-        }
-      ],
-      options   : {
-        port      : 9000,
-        // Change this to '0.0.0.0' to access the server from outside.
-        hostname  : 'localhost',
-        livereload: 35729
-      },
-      livereload: {
+    connect: {
+      main: {
         options: {
-          open      : true,
-          base      : [
-            '<%= yeoman.app %>'
-          ],
-          middleware: function (connect) {
-            return [
-              proxySnippet,
-              connect.static(require('path').resolve('public'))
-            ];
-          }
+          port: 9001,
+          base: 'public',
+          open: true
         }
-      },
-      /*
-       dist: {
-       options: {
-       base: '<%= yeoman.dist %>'
-       }
-       }
-       */
-    },
-    // Put files not handled in other tasks here
-    copy     : {
-      dist: {
-        files: [{
-          expand: true,
-          dot   : true,
-          cwd   : '<%= yeoman.app %>',
-          dest  : '<%= yeoman.dist %>',
-          src   : '**'
-        }]
-      },
-    },
-    // Test settings
-    karma    : {
-      unit: {
-        configFile: 'test/config/karma.conf.js',
-        singleRun : true
       }
     },
-    bowercopy: {
-      options: {
-        destPrefix: '<%= yeoman.app %>'
+    watch: {
+      main: {
+        options: {
+          livereload: true,
+          livereloadOnError: false,
+          spawn: false
+        },
+        files: [createFolderGlobs(['public/*.js', 'public/*.less', 'public/*.html']), '!public/_SpecRunner.html', '!public/.grunt'],
+        tasks: [] //all the tasks are run dynamically during the watch event handler
+      }
+    },
+    jshint: {
+      main: {
+        options: {
+          reporter: require('jshint-stylish'),
+          jshintrc: '.jshintrc'
+        },
+        src: createFolderGlobs('public/*.js')
+      }
+    },
+    clean: {
+      before: {
+        src: ['public/_dist', 'public/temp']
       },
-      test   : {
+      after: {
+        src: ['public/temp']
+      }
+    },
+    less: {
+      production: {
+        options: {},
         files: {
-          'test/lib/angular-mocks'   : 'angular-mocks',
-          'test/lib/angular-scenario': 'angular-scenario'
+          'public/temp/app.css': 'public/app.less'
         }
       }
+    },
+    ngtemplates: {
+      main: {
+        options: {
+          module: pkg.name,
+          htmlmin: '<%= htmlmin.main.options %>'
+        },
+        src: [createFolderGlobs('public/*.html'), '!public/index.html', '!public/_SpecRunner.html'],
+        dest: 'public/temp/templates.js'
+      }
+    },
+    copy: {
+      main: {
+        files: [
+          {
+            cwd: 'public/',
+            src: ['img/**'],
+            dest: 'public/_dist/'
+          },
+          {
+            cwd: 'public/',
+            src: ['bower_components/font-awesome/fonts/**'],
+            dest: 'public/_dist/',
+            filter: 'isFile',
+            expand: true
+          },
+          {
+            cwd: 'public/',
+            src: ['bower_components/bootstrap/fonts/**'],
+            dest: 'public/_dist/',
+            filter: 'isFile',
+            expand: true
+          }
+          //{src: ['bower_components/angular-ui-utils/ui-utils-ieshiv.min.js'], dest: '_dist/'},
+          //{src: ['bower_components/select2/*.png','bower_components/select2/*.gif'], dest:'_dist/css/',flatten:true,expand:true},
+          //{src: ['bower_components/angular-mocks/angular-mocks.js'], dest: '_dist/'}
+        ]
+      }
+    },
+    dom_munger: {
+      read: {
+        options: {
+          read: [
+            {selector: 'script[data-concat!="false"]', attribute: 'src', writeto: 'appjs'},
+            {selector: 'link[rel="stylesheet"][data-concat!="false"]', attribute: 'href', writeto: 'appcss'}
+          ]
+        },
+        src: 'public/index.html'
+      },
+      update: {
+        options: {
+          remove: ['script[data-remove!="false"]', 'link[data-remove!="false"]'],
+          append: [
+            {selector: 'body', html: '<script src="app.full.min.js"></script>'},
+            {selector: 'head', html: '<link rel="stylesheet" href="app.full.min.css">'}
+          ]
+        },
+        src: 'public/index.html',
+        dest: 'public/_dist/index.html'
+      }
+    },
+    cssmin: {
+      main: {
+        src: ['public/temp/app.css', '<%= dom_munger.data.appcss %>'],
+        dest: 'public/_dist/app.full.min.css'
+      }
+    },
+    concat: {
+      main: {
+        src: ['<%= dom_munger.data.appjs %>', '<%= ngtemplates.main.dest %>'],
+        dest: 'public/temp/app.full.js'
+      }
+    },
+    ngAnnotate: {
+      main: {
+        src: 'public/temp/app.full.js',
+        dest: 'public/temp/app.full.js'
+      }
+    },
+    uglify: {
+      main: {
+        src: 'public/temp/app.full.js',
+        dest: 'public/_dist/app.full.min.js'
+      }
+    },
+    htmlmin: {
+      main: {
+        options: {
+          collapseBooleanAttributes: true,
+          collapseWhitespace: true,
+          removeAttributeQuotes: true,
+          removeComments: true,
+          removeEmptyAttributes: true,
+          removeScriptTypeAttributes: true,
+          removeStyleLinkTypeAttributes: true
+        },
+        files: {
+          'public/_dist/index.html': 'public/_dist/index.html'
+        }
+      }
+    },
+    //Imagemin has issues on Windows.
+    //To enable imagemin:
+    // - "npm install grunt-contrib-imagemin"
+    // - Comment in this section
+    // - Add the "imagemin" task after the "htmlmin" task in the build task alias
+    // imagemin: {
+    //   main:{
+    //     files: [{
+    //       expand: true, cwd:'_dist/',
+    //       src:['**/{*.png,*.jpg}'],
+    //       dest: '_dist/'
+    //     }]
+    //   }
+    // },
+    karma: {
+      options: {
+        frameworks: ['jasmine'],
+        files: [  //this files data is also updated in the watch handler, if updated change there too
+          '<%= dom_munger.data.appjs %>',
+          'public/bower_components/angular-mocks/angular-mocks.js',
+          createFolderGlobs('public/*-spec.js')
+        ],
+        logLevel: 'ERROR',
+        reporters: ['mocha'],
+        autoWatch: false, //watching is handled by grunt-contrib-watch
+        singleRun: true
+      },
+      all_tests: {
+        browsers: ['PhantomJS', 'Chrome', 'Firefox']
+      },
+      during_watch: {
+        browsers: ['PhantomJS']
+      },
     }
   });
 
-  grunt.registerTask('server', function (target) {
-    grunt.task.run([
-      //'copy:dist',
-      'configureProxies',
-      'connect:livereload',
-      'watch'
-    ]);
+  grunt.registerTask('build', ['jshint', 'clean:before', 'less', 'dom_munger', 'ngtemplates', 'cssmin', 'concat', 'ngAnnotate', 'uglify', 'copy', 'htmlmin', 'clean:after']);
+  grunt.registerTask('serve', ['dom_munger:read', 'jshint', 'connect', 'watch']);
+  grunt.registerTask('test', ['dom_munger:read', 'karma:all_tests']);
+
+  grunt.event.on('watch', function (action, filepath) {
+    //https://github.com/gruntjs/grunt-contrib-watch/issues/156
+
+    var tasksToRun = [];
+
+    if (filepath.lastIndexOf('.js') !== -1 && filepath.lastIndexOf('.js') === filepath.length - 3) {
+
+      //lint the changed js file
+      grunt.config('jshint.main.src', filepath);
+      tasksToRun.push('jshint');
+
+      //find the appropriate unit test for the changed file
+      var spec = filepath;
+      if (filepath.lastIndexOf('-spec.js') === -1 || filepath.lastIndexOf('-spec.js') !== filepath.length - 8) {
+        spec = filepath.substring(0, filepath.length - 3) + '-spec.js';
+      }
+
+      //if the spec exists then lets run it
+      if (grunt.file.exists(spec)) {
+        var files = [].concat(grunt.config('dom_munger.data.appjs'));
+        files.push('public/bower_components/angular-mocks/angular-mocks.js');
+        files.push(spec);
+        grunt.config('karma.options.files', files);
+        tasksToRun.push('karma:during_watch');
+      }
+    }
+
+    //if index.html changed, we need to reread the <script> tags so our next run of karma
+    //will have the correct environment
+    if (filepath === 'public/index.html') {
+      tasksToRun.push('dom_munger:read');
+    }
+
+    grunt.config('watch.main.tasks', tasksToRun);
+
   });
 };

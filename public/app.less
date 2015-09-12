@@ -1,0 +1,30 @@
+@import "bower_components/bootstrap/less/bootstrap.less";
+//@import "bower_components/bootstrap/less/theme.less";
+@import "bower_components/font-awesome/less/font-awesome.less";
+
+@fa-font-path: "bower_components/font-awesome/fonts";
+
+@body-bg: #f1f1ee;
+@border-radius-base  : 0px;
+@border-radius-large : 0px;
+@border-radius-small : 0px;
+
+.panel, .list-group {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  border: none;
+}
+
+.panel-body {
+  padding: 20px;
+}
+
+/* Component LESS */
+@import "partial/home/home.less";
+/* Add Component LESS Above */
+
+/* Required for Angular UI Bootstrap */
+.nav, .pagination, .carousel, .panel-title a {
+  cursor: pointer;
+}

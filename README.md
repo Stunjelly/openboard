@@ -11,22 +11,18 @@ bower install
 npm start
 ```
 
-## Prerequisites
+## Client
 
-- Node.js
-- MySQL
-- Bower
+The front end is powered by AngularJS. Grunt builds the production code into `./public/dist`, during development 
+express will always route static content to `./public`.
 
 #### Technology
 
-Server
+:)
 
 - Node.js
-- WebSockets
 - MySQL
-
-Client
-
 - AngularJS
-- LESS
 - WebSockets
+- LESS
+- Grunt

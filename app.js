@@ -18,10 +18,11 @@ app.set('view engine', 'jade');
 app.use(morgan('dev'));
 app.use(bodyParser());
 app.use(methodOverride());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, process.env.NODE_ENV === 'development' ? 'public' : 'public/_dist')));
 
 // development only
 if ('development' === app.get('env')) {
+  app.use(express.static(path.join(__dirname, 'public')));
   app.use(errorHandler())
 }
 
