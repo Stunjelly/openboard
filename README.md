@@ -1,8 +1,9 @@
 # Openboard
 
-Real time KPI dashboards.
+Real time KPI dashboards designed as a free Geckoboard alternative for Microsoft networks. 
+Uses Windows Challenge/Response (NTLM) for authentication and a MySQL database.
 
-## Install
+## Installation
 
 ```
 npm install

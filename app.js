@@ -1,11 +1,12 @@
-var express = require('express')
-  , bodyParser = require('body-parser')
-  , errorHandler = require('errorhandler')
-  , methodOverride = require('method-override')
-  , morgan = require('morgan')
-  , http = require('http')
-  , path = require('path')
-  , db = require('./models');
+require('dotenv').load();
+var express = require('express');
+var bodyParser = require('body-parser');
+var errorHandler = require('errorhandler');
+var methodOverride = require('method-override');
+var morgan = require('morgan');
+var http = require('http');
+var path = require('path');
+var db = require('./models');
 
 
 var app = express();
@@ -24,16 +25,14 @@ if ('development' === app.get('env')) {
   app.use(errorHandler())
 }
 
+require('./routes')(app);
 
-db
-  .sequelize
-  .sync()
-  .complete(function (err) {
-    if (err) {
-      throw err
-    } else {
-      http.createServer(app).listen(app.get('port'), function () {
-        console.log('Express server listening on port ' + app.get('port'))
-      })
-    }
-  });
+db.sequelize.sync().complete(function (err) {
+  if (err) {
+    throw err
+  } else {
+    http.createServer(app).listen(app.get('port'), function () {
+      console.log('Express server listening on port ' + app.get('port'))
+    })
+  }
+});
