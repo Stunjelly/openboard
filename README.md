@@ -3,6 +3,8 @@
 Real time KPI dashboards designed as a free Geckoboard alternative for Microsoft networks. 
 Uses Windows Challenge/Response (NTLM) for authentication and a MySQL database.
 
+Node.js, MySQL, AngularJS, WebSockets, LESS, Grunt
+
 ## Installation
 
 ```
@@ -12,7 +14,7 @@ grunt build
 npm start
 ```
 
-Visit http://localhost:3000
+Open [http://localhost:3000](http://localhost:3000)
 
 ## Client
 
@@ -30,16 +32,4 @@ MYSQL_USER=root
 MYSQL_PASS=root
 LDAP_DOMAIN=national
 LDAP_CONTROLLER=ldap://national.example.gov.uk
-
 ```
-
-#### Technology
-
-:)
-
-- Node.js
-- MySQL
-- AngularJS
-- WebSockets
-- LESS
-- Grunt
