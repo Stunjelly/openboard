@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  var Widget = sequelize.define('Widget', {
+  var Widget = sequelize.define('widget', {
     dashboardId: {
       type: DataTypes.INTEGER,
       validate: {

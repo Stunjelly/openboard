@@ -1,5 +1,5 @@
 module.exports = function (sequelize, DataTypes) {
-  var Dashboard = sequelize.define('Dashboard', {
+  var Dashboard = sequelize.define('dashboard', {
     userId: {
       type: DataTypes.STRING,
       validate: {
