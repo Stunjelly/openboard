@@ -6,9 +6,14 @@
 @icon-font-path: "bower_components/bootstrap/fonts/";
 
 @body-bg: #f1f1ee;
-//@border-radius-base  : 0px;
-//@border-radius-large : 0px;
-//@border-radius-small : 0px;
+@border-radius-base: 0px;
+@border-radius-large: 0px;
+@border-radius-small: 0px;
+@brand-primary: #428bca;
+@brand-success: #5cb85c;
+@brand-info: #5bc0de;
+@brand-warning: #f0ad4e;
+@brand-danger: #d9534f;
 @brand-font-family: 'CuriousSans-Bold', Arial, Helvetica, sans-serif;
 
 .panel, .list-group {
@@ -22,9 +27,11 @@
   padding: 20px;
 }
 
+@import "styles/modals";
 /* Component LESS */
 @import "partial/home/home.less";
 @import "partial/dashboard/dashboard.less";
+@import "partial/dashboard/edit/edit-dashboard.less";
 /* Add Component LESS Above */
 
 /* Required for Angular UI Bootstrap */

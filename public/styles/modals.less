@@ -1,0 +1,71 @@
+.modal {
+
+  // Style our modals to look fresh
+  .modal-content {
+    border: none;
+    border-radius: @border-radius-base;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+
+  .modal-header {
+    border-bottom: 0px solid @body-bg;
+    .modal-title {
+      font-family: @brand-font-family;
+      line-height: 1;
+    }
+  }
+  .modal-footer {
+    border-top: 0px solid @body-bg;
+    margin-top: 0;
+  }
+
+  &.fade .modal-dialog {
+    .translate(0, 5%);
+    .transition-transform(~"0.15s ease-out");
+  }
+  &.in .modal-dialog { .translate(0, 0)}
+}
+
+.modal-backdrop.in {
+  .opacity(0.0);
+}
+
+body.modal-open {
+  .widget {
+    .opacity(0.5);
+  }
+  .dashboard-button-bar {
+    .opacity(0);
+  }
+  .ui-view-container {
+    -webkit-filter: blur(5px);
+  }
+}
+.ui-view-container {
+  -webkit-transition: -webkit-filter @uiview-speed;
+  -moz-transition: -webkit-filter @uiview-speed;
+  -ms-transition: -webkit-filter @uiview-speed;
+  -o-transition: -webkit-filter @uiview-speed;
+  transition: -webkit-filter @uiview-speed;
+  -webkit-filter: blur(0px);
+}
+
+
+// Fix angular-schema-forms when doing a full modal form (footer as json)
+.schema-form-actions.modal-footer.btn-group {
+  display: block;
+  > .btn {
+    margin-left: 0;
+    margin-right: 5px;
+    float: right;
+    &:first-child {
+      margin-right: 0;
+    }
+  }
+}
+
+
+.btn {
+  border: none;
+}

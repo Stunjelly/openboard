@@ -1,10 +1,9 @@
 <div ng-controller="DashboardCtrl">
   <div class="expand">
-    <!--<h1 style="margin-left: 20px"><a ui-sref="home">openboard</a> <small>{{dashboard.title}}</small></h1>-->
     <ul class="dashboard-button-bar">
       <li><a ui-sref="home" tooltip="Back to start" tooltip-placement="right"><i class="fa fa-fw fa-arrow-left"></i></a></li>
       <li class="title"><span>{{dashboard.title}}</span></li>
-      <li><a href="" tooltip="Edit Dashboard" tooltip-placement="bottom"><i class="fa fa-fw fa-pencil"></i></a></li>
+      <li><a href="" ng-click="editDashboard()" tooltip="Edit Dashboard" tooltip-placement="bottom"><i class="fa fa-fw fa-pencil"></i></a></li>
       <li><a href="" tooltip="Add New Widget" tooltip-placement="bottom"><i class="fa fa-fw fa-plus"></i></a></li>
       <li class="pull-right"><a href="" tooltip="Expand" tooltip-placement="left"><i class="fa fa-fw fa-expand"></i></a></li>
     </ul>
@@ -13,7 +12,7 @@
     <ul class="grid" id="grid">
       <li ng-repeat="widget in widgets track by widget.id" class="widget">
         <div class="inner">
-          <div class="title">{{widget.title}}</div>
+          <div class="title">{{widget.title}} <span class="text-muted">ID{{widget.id}}</span></div>
           <h1>51,837</h1>
         </div>
       </li>

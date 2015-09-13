@@ -10,7 +10,10 @@ angular.module('openboard').controller('HomeCtrl', function ($scope, Dashboard, 
         minLength: 2,
         required: true,
         title: "Create a new Dashboard",
-        description: "Pick a name for your dashboard"
+        description: "Pick a name for your dashboard",
+        "x-schema-form": {
+          placeholder: "My Business or Website"
+        }
       }
     }
   };
