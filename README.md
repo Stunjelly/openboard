@@ -1,9 +1,14 @@
 # Openboard
 
-Real time KPI dashboards designed as a free Geckoboard alternative for Microsoft networks. 
-Uses Windows Challenge/Response (NTLM) for authentication and a MySQL database.
+Real time [KPI](https://en.wikipedia.org/wiki/Performance_indicator) dashboards designed as a free Geckoboard alternative for Microsoft networks. 
+Uses Windows Challenge/Response ([NTLM](https://en.wikipedia.org/wiki/NT_LAN_Manager)) for authentication and a MySQL database.
 
-Node.js, MySQL, AngularJS, WebSockets, LESS, Grunt
+[Node.js](https://nodejs.org/en/)
+, MySQL ([Sequelize](http://docs.sequelizejs.com/en/latest/))
+, [AngularJS](https://angularjs.org/)
+, [WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
+, [LESS](http://lesscss.org/)
+, [Grunt](http://gruntjs.com/)
 
 ## Installation
 
