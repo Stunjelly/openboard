@@ -14,6 +14,7 @@
     "angular-cookies": "~1.2",
     "angular-mocks": "~1.2",
     "angular-resource": "~1.2",
+    "angular-schema-form": "~0.8.8",
     "angular-ui-router": "~0.2",
     "angular-ui-utils": "~0.1",
     "bootstrap": "~3.1",
@@ -21,6 +22,13 @@
     "jquery": "~2.0",
     "less.js": "~1.6",
     "moment": "~2.5",
+    "objectpath": "~1.2.1",
+    "tv4": "~1.2.7",
     "underscore": "~1.5"
+  },
+  "resolutions": {
+    "angular": "~1.2",
+    "objectpath": "~1.1.0",
+    "tv4": "~1.0.15"
   }
 }

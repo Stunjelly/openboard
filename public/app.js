@@ -1,15 +1,15 @@
-angular.module('openboard', ['ui.bootstrap', 'ui.utils', 'ui.router', 'ngAnimate', 'ngResource']);
+angular.module('openboard', ['ui.bootstrap', 'ui.utils', 'ui.router', 'ngAnimate', 'ngResource', 'schemaForm']);
 
-angular.module('openboard').config(function ($stateProvider, $urlRouterProvider) {
+angular.module('openboard').config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
 
   $stateProvider.state('home', {
     url: '/',
     templateUrl: 'partial/home/home.html'
   });
   $stateProvider.state('dashboard', {
-        url: '/b/:id',
-        templateUrl: 'partial/dashboard/dashboard.html'
-    });
+    url: '/b/:id',
+    templateUrl: 'partial/dashboard/dashboard.html'
+  });
   /* Add New States Above */
   $urlRouterProvider.otherwise('/');
 

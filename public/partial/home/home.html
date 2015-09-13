@@ -1,31 +1,34 @@
 <div ng-controller="HomeCtrl">
   <div class="container home-page">
     <h1 class="text-center">openboard</h1>
-    <p class="text-center">authenticated as <strong>{{user.UserName || 'anon'}}</strong></p>
+
+    <p class="text-center">authenticated as <strong>{{user.UserName || 'user'}}</strong></p>
+
     <div class="panel panel-default">
       <div class="panel-body">
 
         <div class="row">
           <div class="col-md-6">
-            <label for="">Launch an existing board</label>
+            <section class="my-dashboards">
+              <p><strong>Your Dashboards</strong></p>
 
-            <div class="form-group">
-              <ul class="list-unstyled">
-                <li ng-repeat="dashboard in dashboards track by dashboard.id">
-                  <a ui-sref="dashboard({id:dashboard.id})">{{dashboard.title}}</a>
-                </li>
-              </ul>
-            </div>
+              <div class="form-group">
+                <ul class="list-unstyled">
+                  <li ng-repeat="dashboard in dashboards track by dashboard.id">
+                    <a ui-sref="dashboard({id:dashboard.id})">{{dashboard.title}}</a>
+                  </li>
+                </ul>
+                <p ng-if="!dashboards.length" class="text-muted">We couldn't find any dashboards belonging to you. Create a dashboard using the form on the right.</p>
+              </div>
+            </section>
+            <section class="public-dashboards">
+              <p><strong>Public Dashboards</strong></p>
+              <p ng-if="!publicDashboards.length" class="text-muted">We couldn't find any public dashboards.</p>
+            </section>
           </div>
           <div class="col-md-6">
-            <label for="">Create a new board</label>
-
-            <div class="form-inline">
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="My Teams Board"/>
-              </div>
-              <button class="btn btn-primary">Create</button>
-            </div>
+            <form name="newDashboard" sf-schema="schema" sf-form="form" sf-model="model"
+                  ng-submit="onSubmit(newDashboard)"></form>
           </div>
         </div>
 
@@ -33,7 +36,8 @@
       </div>
     </div>
     <p class="text-muted text-center">
-      <small><a href="https://github.com/Stunjelly/openboard/graphs/contributors" target="_blank">github</a></small>
+      <small><i class="fa fa-github"></i> <a href="https://github.com/Stunjelly/openboard/graphs/contributors"
+                                             target="_blank">GitHub</a></small>
     </p>
   </div>
 </div>

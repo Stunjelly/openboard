@@ -3,11 +3,13 @@
 @import "bower_components/font-awesome/less/font-awesome.less";
 
 @fa-font-path: "bower_components/font-awesome/fonts";
+@icon-font-path: "bower_components/bootstrap/fonts/";
 
 @body-bg: #f1f1ee;
-@border-radius-base  : 0px;
-@border-radius-large : 0px;
-@border-radius-small : 0px;
+//@border-radius-base  : 0px;
+//@border-radius-large : 0px;
+//@border-radius-small : 0px;
+@brand-font-family: 'CuriousSans-Bold', Arial, Helvetica, sans-serif;
 
 .panel, .list-group {
   -webkit-box-shadow: none;
@@ -31,7 +33,7 @@
 }
 
 h1, h2 {
-  font-family: 'CuriousSans-Bold', Arial, Helvetica, sans-serif;
+  font-family: @brand-font-family;
 }
 
 .ui-view-container {
@@ -42,50 +44,50 @@ h1, h2 {
 @uiview-x: 100px;
 
 [ui-view].ng-enter, [ui-view].ng-leave {
-  position           : absolute;
-  left               : 0;
-  right              : 0;
-  -webkit-transition : all @uiview-speed ease-in-out;
-  -moz-transition    : all @uiview-speed ease-in-out;
-  -o-transition      : all @uiview-speed ease-in-out;
-  transition         : all @uiview-speed ease-in-out;
+  position: absolute;
+  left: 0;
+  right: 0;
+  -webkit-transition: all @uiview-speed ease-in-out;
+  -moz-transition: all @uiview-speed ease-in-out;
+  -o-transition: all @uiview-speed ease-in-out;
+  transition: all @uiview-speed ease-in-out;
 }
 
 [ui-view].ng-enter {
-  opacity           : 0;
-  -webkit-transform : translate3d(@uiview-x, 0, 0);
-  -moz-transform    : translate3d(@uiview-x, 0, 0);
-  transform         : translate3d(@uiview-x, 0, 0);
+  opacity: 0;
+  -webkit-transform: translate3d(@uiview-x, 0, 0);
+  -moz-transform: translate3d(@uiview-x, 0, 0);
+  transform: translate3d(@uiview-x, 0, 0);
 }
 
 [ui-view].ng-enter-active {
-  opacity           : 1;
-  -webkit-transform : translate3d(0, 0, 0);
-  -moz-transform    : translate3d(0, 0, 0);
-  transform         : translate3d(0, 0, 0);
+  opacity: 1;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 
 [ui-view].ng-leave {
-  opacity           : 1;
-  -webkit-transform : translate3d(0, 0, 0);
-  -moz-transform    : translate3d(0, 0, 0);
-  transform         : translate3d(0, 0, 0);
+  opacity: 1;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 
 [ui-view].ng-leave-active {
-  opacity           : 0;
-  -webkit-transform : translate3d(-@uiview-x, 0, 0);
-  -moz-transform    : translate3d(-@uiview-x, 0, 0);
-  transform         : translate3d(-@uiview-x, 0, 0);
+  opacity: 0;
+  -webkit-transform: translate3d(-@uiview-x, 0, 0);
+  -moz-transform: translate3d(-@uiview-x, 0, 0);
+  transform: translate3d(-@uiview-x, 0, 0);
 }
 
 @font-face {
-  font-family : 'CuriousSans-Bold';
-  src         : url("fonts/CuriousSans-Bold.otf") format("opentype");
-  src         : url("fonts/CuriousSans-Bold.eot");
-  src         : url("fonts/CuriousSans-Bold.eot?#iefix") format("embedded-opentype"),
+  font-family: 'CuriousSans-Bold';
+  src: url("fonts/CuriousSans-Bold.otf") format("opentype");
+  src: url("fonts/CuriousSans-Bold.eot");
+  src: url("fonts/CuriousSans-Bold.eot?#iefix") format("embedded-opentype"),
   url("fonts/CuriousSans-Bold.woff") format("woff"),
   url("fonts/CuriousSans-Bold.ttf") format("truetype");
-  font-weight : normal;
-  font-style  : normal
+  font-weight: normal;
+  font-style: normal
 }
