@@ -12,7 +12,7 @@
             <div class="form-group">
               <ul class="list-unstyled">
                 <li ng-repeat="dashboard in dashboards track by dashboard.id">
-                  <a href="">{{dashboard.title}}</a>
+                  <a ui-sref="dashboard({id:dashboard.id})">{{dashboard.title}}</a>
                 </li>
               </ul>
             </div>
@@ -33,7 +33,7 @@
       </div>
     </div>
     <p class="text-muted text-center">
-      <small>an app by stunjelly</small>
+      <small><a href="https://github.com/Stunjelly/openboard/graphs/contributors" target="_blank">github</a></small>
     </p>
   </div>
 </div>

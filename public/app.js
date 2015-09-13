@@ -6,6 +6,10 @@ angular.module('openboard').config(function ($stateProvider, $urlRouterProvider)
     url: '/',
     templateUrl: 'partial/home/home.html'
   });
+  $stateProvider.state('dashboard', {
+        url: '/b/:id',
+        templateUrl: 'partial/dashboard/dashboard.html'
+    });
   /* Add New States Above */
   $urlRouterProvider.otherwise('/');
 
