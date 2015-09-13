@@ -44,7 +44,7 @@
     "grunt-dom-munger": "~3.4",
     "grunt-karma": "~0.8.3",
     "grunt-modernizr": "~0.4.1",
-    "grunt-ng-annotate": "~0.5",
+    "grunt-ng-annotate": "^1.0.1",
     "grunt-ngmin": "~0.0.3",
     "grunt-rev": "~0.1.0",
     "grunt-svgmin": "~0.3.0",

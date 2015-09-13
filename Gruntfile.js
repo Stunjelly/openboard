@@ -214,13 +214,22 @@ module.exports = function (grunt) {
       },
       during_watch: {
         browsers: ['PhantomJS']
-      },
+      }
     }
   });
 
-  grunt.registerTask('build', ['jshint', 'clean:before', 'less', 'dom_munger', 'ngtemplates', 'cssmin', 'concat', 'ngAnnotate', 'uglify', 'copy', 'htmlmin', 'clean:after']);
+  grunt.registerTask('build', ['jshint', 'clean:before', 'less', 'dom_munger', 'prefix_munger', 'ngtemplates', 'cssmin', 'concat', 'ngAnnotate', 'uglify', 'copy', 'htmlmin', 'clean:after']);
   grunt.registerTask('serve', ['dom_munger:read', 'jshint', 'connect', 'watch']);
   grunt.registerTask('test', ['dom_munger:read', 'karma:all_tests']);
+
+  grunt.registerTask('prefix_munger', 'Prefix with public!', function () {
+    var paths = grunt.config('dom_munger.data.appjs');
+    var newPaths = [];
+    for (path in paths) {
+      newPaths.push('public/' + paths[path]);
+    }
+    grunt.config('dom_munger.data.appjs', newPaths);
+  });
 
   grunt.event.on('watch', function (action, filepath) {
     //https://github.com/gruntjs/grunt-contrib-watch/issues/156

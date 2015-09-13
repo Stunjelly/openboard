@@ -5,3 +5,4 @@ node_modules
 public/bower_components/
 .env
 public/lib
+public/_dist
