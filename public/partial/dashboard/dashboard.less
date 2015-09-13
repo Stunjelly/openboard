@@ -1,3 +1,29 @@
-section.items {
-  margin-top: 15px;
+.grid-container {
+  padding: 10px;
+  .grid {
+    padding: 0;
+    list-style-type: none;
+    .widget {
+      padding: 10px;
+      display: inline-flex;
+      .inner {
+        padding: 10px;
+        background-color: #fff;
+        min-width: 200px;
+        min-height: 200px;
+        .title {
+          text-transform: uppercase;
+          font-weight: bold;
+          font-size: 0.75em;
+          margin-bottom: 10px;
+        }
+        h1 {
+          font-size: 50px;
+          margin: 0;
+          padding: 0;
+          line-height: 1;
+        }
+      }
+    }
+  }
 }

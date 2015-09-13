@@ -1,7 +1,11 @@
 var db = require('../models');
 
 exports.findAll = function (req, res) {
-  db.Widget.findAll().success(function (entities) {
+  var q;
+  if (req.query.dashboardId) {
+    q = {where: {dashboardId: req.query.dashboardId}}
+  }
+  db.Widget.findAll(q).success(function (entities) {
     res.json(entities)
   })
 };

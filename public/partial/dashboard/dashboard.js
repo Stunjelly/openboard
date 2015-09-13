@@ -1,5 +1,5 @@
-angular.module('openboard').controller('DashboardCtrl', function ($scope, $stateParams, Dashboard) {
+angular.module('openboard').controller('DashboardCtrl', function ($scope, $stateParams, Dashboard, Widget) {
 
-  console.log($stateParams);
+  $scope.widgets = Widget.query({dashboardId: $stateParams.id});
 
 });
