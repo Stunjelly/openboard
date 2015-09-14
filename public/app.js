@@ -1,11 +1,11 @@
 angular.module('openboard', [
-  'ui.bootstrap'
-  , 'ui.utils'
-  , 'ui.router'
-  , 'ngAnimate'
-  , 'ngSanitize'
-  , 'ngResource'
-  , 'schemaForm'
+  'ui.bootstrap',
+  'ui.utils',
+  'ui.router',
+  'ngAnimate',
+  'ngSanitize',
+  'ngResource',
+  'schemaForm',
 ]);
 
 angular.module('openboard').config(function ($stateProvider, $urlRouterProvider) {
