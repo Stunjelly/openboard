@@ -13,7 +13,10 @@ exports.findAll = function (req, res) {
 
 exports.find = function (req, res) {
   db.Dashboard.find({
-    where: {id: req.param('dashboardId'), userId: req.ntlm.UserName}
+    where: {
+      id: req.param('dashboardId'),
+      userId: req.ntlm.UserName
+    }
   }).then(function (entity) {
     if (entity) {
       res.json(entity)
@@ -37,9 +40,17 @@ exports.create = function (req, res) {
 };
 
 exports.update = function (req, res) {
-  db.Dashboard.find({where: {id: req.param('dashboardId')}}).then(function (entity) {
+  db.Dashboard.find({
+    where: {
+      id: req.param('dashboardId'),
+      userId: req.ntlm.UserName
+    }
+  }).then(function (entity) {
     if (entity) {
-      entity.updateAttributes(req.body).then(function (entity) {
+      entity.updateAttributes({
+        title: req.body.title,
+        'public': req.body.public
+      }).then(function (entity) {
         res.json(entity)
       })
     } else {
@@ -49,7 +60,11 @@ exports.update = function (req, res) {
 };
 
 exports.destroy = function (req, res) {
-  db.Dashboard.find({where: {id: req.param('dashboardId')}}).then(function (entity) {
+  db.Dashboard.find({
+    where: {
+      id: req.param('dashboardId')
+    }
+  }).then(function (entity) {
     if (entity) {
       entity.destroy().then(function () {
         res.send(204)
