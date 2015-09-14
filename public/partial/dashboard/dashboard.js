@@ -18,6 +18,20 @@ angular.module('openboard').controller('DashboardCtrl', function ($scope, $state
         }
       }).result.then(function (result) {
       });
-  }
+  };
+
+  $scope.deleteDashboard = function () {
+    $modal
+      .open({
+        templateUrl: 'partial/dashboard/delete/delete-dashboard.html',
+        controller: 'DeleteDashboardCtrl',
+        resolve: {
+          resolvedDashboard: function () {
+            return $scope.dashboard;
+          }
+        }
+      }).result.then(function (result) {
+      });
+  };
 
 });
