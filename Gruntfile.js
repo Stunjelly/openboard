@@ -7,11 +7,11 @@ var path = require('path');
 //Using exclusion patterns slows down Grunt significantly
 //instead of creating a set of patterns like '**/*.js' and '!**/node_modules/**'
 //this method is used to create a set of inclusive patterns for all subdirectories
-//skipping node_modules, bower_components, _dist, and any .dirs
+//skipping node_modules, lib, _dist, and any .dirs
 //This enables users to create any directory structure they desire.
 var createFolderGlobs = function (fileTypePatterns) {
   fileTypePatterns = Array.isArray(fileTypePatterns) ? fileTypePatterns : [fileTypePatterns];
-  var ignore = ['node_modules', 'bower_components', '_dist', 'temp'];
+  var ignore = ['node_modules', 'lib', '_dist', 'temp'];
   var fs = require('fs');
   return fs.readdirSync(path.join(process.cwd(), ''))
     .map(function (file) {
@@ -102,21 +102,21 @@ module.exports = function (grunt) {
           },
           {
             cwd: 'public/',
-            src: ['bower_components/font-awesome/fonts/**'],
+            src: ['lib/font-awesome/fonts/**'],
             dest: 'public/_dist/',
             filter: 'isFile',
             expand: true
           },
           {
             cwd: 'public/',
-            src: ['bower_components/bootstrap/fonts/**'],
+            src: ['lib/bootstrap/fonts/**'],
             dest: 'public/_dist/',
             filter: 'isFile',
             expand: true
           }
-          //{src: ['bower_components/angular-ui-utils/ui-utils-ieshiv.min.js'], dest: '_dist/'},
-          //{src: ['bower_components/select2/*.png','bower_components/select2/*.gif'], dest:'_dist/css/',flatten:true,expand:true},
-          //{src: ['bower_components/angular-mocks/angular-mocks.js'], dest: '_dist/'}
+          //{src: ['lib/angular-ui-utils/ui-utils-ieshiv.min.js'], dest: '_dist/'},
+          //{src: ['lib/select2/*.png','lib/select2/*.gif'], dest:'_dist/css/',flatten:true,expand:true},
+          //{src: ['lib/angular-mocks/angular-mocks.js'], dest: '_dist/'}
         ]
       }
     },
@@ -201,7 +201,7 @@ module.exports = function (grunt) {
         frameworks: ['jasmine'],
         files: [  //this files data is also updated in the watch handler, if updated change there too
           '<%= dom_munger.data.appjs %>',
-          'public/bower_components/angular-mocks/angular-mocks.js',
+          'public/lib/angular-mocks/angular-mocks.js',
           createFolderGlobs('public/*-spec.js')
         ],
         logLevel: 'ERROR',
@@ -251,7 +251,7 @@ module.exports = function (grunt) {
       //if the spec exists then lets run it
       if (grunt.file.exists(spec)) {
         var files = [].concat(grunt.config('dom_munger.data.appjs'));
-        files.push('public/bower_components/angular-mocks/angular-mocks.js');
+        files.push('public/lib/angular-mocks/angular-mocks.js');
         files.push(spec);
         grunt.config('karma.options.files', files);
         tasksToRun.push('karma:during_watch');

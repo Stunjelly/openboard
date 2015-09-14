@@ -1,8 +1,13 @@
 .DS_Store
 *.swp
 *~
+.idea
 node_modules
-public/bower_components/
-.env
+
+# Bower components
 public/lib
+
+# Client side build (have CI do this)
 public/_dist
+
+.env*
