@@ -1,10 +1,10 @@
 angular.module('openboard').controller('DashboardCtrl', function ($scope, $stateParams, Dashboard, Widget, $modal) {
 
   // Get dashboard
-  $scope.dashboard = Dashboard.get({dashboardId: $stateParams.id});
+  $scope.dashboard = Dashboard.get({dashboardId: $stateParams.dashboardId});
 
   // Get widgets[]
-  $scope.widgets = Widget.query({dashboardId: $stateParams.id});
+  $scope.widgets = Widget.query({dashboardId: $stateParams.dashboardId});
 
   $scope.editDashboard = function () {
     $modal
