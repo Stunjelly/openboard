@@ -15,7 +15,7 @@
               <div class="form-group">
                 <ul class="list-unstyled">
                   <li ng-repeat="dashboard in dashboards track by dashboard.id">
-                    <a ui-sref="dashboard({id:dashboard.id})">{{dashboard.title}}</a>
+                    <a ui-sref="dashboard({dashboardId:dashboard.id})">{{dashboard.title}}</a>
                   </li>
                 </ul>
                 <p ng-if="!dashboards.length" class="text-muted">We couldn't find any dashboards belonging to you. Create a dashboard using the form on the right.</p>
