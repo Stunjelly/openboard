@@ -1,4 +1,4 @@
-angular.module('openboard').controller('HomeCtrl', function ($scope, Dashboard, $state) {
+angular.module('openboard').controller('HomeCtrl', function ($scope, Dashboard, $state, toastr) {
 
   $scope.dashboards = Dashboard.query();
 
@@ -34,6 +34,7 @@ angular.module('openboard').controller('HomeCtrl', function ($scope, Dashboard, 
       var dash = new Dashboard();
       dash.title = $scope.model.title;
       dash.$save(function (res) {
+        toastr.success('Dashboard Created!', res.title);
         $state.go('dashboard', {dashboardId: res.id});
       });
     }

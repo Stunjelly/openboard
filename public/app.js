@@ -6,6 +6,7 @@ angular.module('openboard', [
   'ngSanitize',
   'ngResource',
   'schemaForm',
+  'toastr',
 ]);
 
 angular.module('openboard').config(function ($stateProvider, $urlRouterProvider) {

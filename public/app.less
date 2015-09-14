@@ -2,32 +2,12 @@
 //@import "lib/bootstrap/less/theme.less";
 @import "lib/font-awesome/less/font-awesome.less";
 
-@fa-font-path: "lib/font-awesome/fonts";
-@icon-font-path: "lib/bootstrap/fonts/";
-
-@body-bg: #f1f1ee;
-@border-radius-base: 0px;
-@border-radius-large: 0px;
-@border-radius-small: 0px;
-@brand-primary: #428bca;
-@brand-success: #5cb85c;
-@brand-info: #5bc0de;
-@brand-warning: #f0ad4e;
-@brand-danger: #d9534f;
-@brand-font-family: 'CuriousSans-Bold', Arial, Helvetica, sans-serif;
-
-.panel, .list-group {
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  border: none;
-}
-
-.panel-body {
-  padding: 20px;
-}
-
+@import "styles/_variables";
 @import "styles/modals";
+@import "styles/toastr";
+@import "styles/panels";
+
+
 /* Component LESS */
 @import "partial/home/home.less";
 @import "partial/dashboard/dashboard.less";
@@ -97,4 +77,12 @@ h1, h2 {
   url("fonts/CuriousSans-Bold.ttf") format("truetype");
   font-weight: normal;
   font-style: normal
+}
+
+// Fix for bootstrap feedback icons
+.form-group {
+  position: relative;
+}
+.has-feedback label, .form-control-feedback {
+  top: 25px;
 }
