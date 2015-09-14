@@ -7,19 +7,33 @@
     -webkit-box-shadow: none;
     box-shadow: none;
     padding: 5px;
-  }
-
-  .modal-header {
-    border-bottom: 0px solid @body-bg;
-    .modal-title {
-      font-family: @brand-font-family;
-      line-height: 1;
+    .modal-header {
+      border-bottom: 0 solid @body-bg;
+      position: relative;
+      button.close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        z-index: 2;
+        display: block;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 30px;
+        text-align: center;
+      }
+      .modal-title {
+        font-family: @brand-font-family;
+        line-height: 1;
+      }
+    }
+    .modal-footer {
+      border-top: 0 solid @body-bg;
+      margin-top: 0;
     }
   }
-  .modal-footer {
-    border-top: 0px solid @body-bg;
-    margin-top: 0;
-  }
+
+
 
   &.fade .modal-dialog {
     .translate(0, 5%);
