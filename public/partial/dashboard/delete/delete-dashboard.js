@@ -6,7 +6,7 @@ angular.module('openboard')
       properties: {
         confirm: {
           type: "boolean",
-          title: "Are you sure?",
+          title: "I want to delete this dashboard",
           description: "To confirm removal of this dashboard and all widgets check the box",
           required: true
         }
@@ -32,6 +32,11 @@ angular.module('openboard')
         "type": "section",
         "htmlClass": "modal-body",
         "items": [
+          {
+            type: "template",
+            template: '<p class="lead">Are you sure you want to delete the dashboard <strong>' + resolvedDashboard.title + '</strong>?</p>',
+            name: 'help'
+          },
           "*"
         ]
       },
