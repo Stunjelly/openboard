@@ -1,4 +1,5 @@
 var db = require('../models');
+var crypto = require('crypto');
 
 exports.findAll = function (req, res) {
   db.Widget.findAll({where: {dashboardId: req.param('dashboardId')}}).then(function (entities) {
@@ -26,6 +27,7 @@ exports.find = function (req, res) {
 };
 
 exports.create = function (req, res) {
+  req.body.apiKey = crypto.createHash('md5').update(username + process.env.USER_API_SECRET).digest("hex");
   db.Widget.create(req.body).then(function (entity) {
     res.statusCode = 201;
     res.json(entity)
@@ -71,3 +73,14 @@ exports.destroy = function (req, res) {
     res.send(400, err);
   })
 };
+
+exports.updateClient = function (req, res) {
+  var expected = crypto.createHash('md5').update(req.param('dashboardId') + process.env.USER_API_SECRET).digest("hex");
+  res.send(expected, expected === req.body.apikey);
+};
+
+function checkApiKey(username, actual) {
+  var expected = crypto.createHash('md5').update(username + process.env.USER_API_SECRET).digest("hex");
+  console.log(expected, actual);
+  return expected === actual;
+}

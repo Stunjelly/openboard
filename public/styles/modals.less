@@ -7,6 +7,12 @@
     -webkit-box-shadow: none;
     box-shadow: none;
     padding: 5px;
+    -webkit-transition: -webkit-filter .3s;
+    -moz-transition: -webkit-filter .3s;
+    -ms-transition: -webkit-filter .3s;
+    -o-transition: -webkit-filter .3s;
+    transition: -webkit-filter .3s;
+    -webkit-filter: blur(10px);
     .modal-header {
       border-bottom: 0 solid @body-bg;
       position: relative;
@@ -47,6 +53,9 @@
 }
 
 body.modal-open {
+  .modal-content {
+    -webkit-filter: blur(0px);
+  }
   .widget {
     .opacity(0.5);
   }

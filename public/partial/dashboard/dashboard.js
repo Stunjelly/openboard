@@ -34,4 +34,18 @@ angular.module('openboard').controller('DashboardCtrl', function ($scope, $state
       });
   };
 
+  $scope.editWidget = function (widget) {
+    $modal
+      .open({
+        templateUrl: 'partial/dashboard/edit-widget/edit-widget.html',
+        controller: 'EditWidgetCtrl',
+        resolve: {
+          resolvedWidget: function () {
+            return widget;
+          }
+        }
+      }).result.then(function (result) {
+      });
+  }
+
 });
