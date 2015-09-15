@@ -39,6 +39,7 @@ angular.module('openboard').controller('DashboardCtrl', function ($scope, $state
       .open({
         templateUrl: 'partial/dashboard/edit-widget/edit-widget.html',
         controller: 'EditWidgetCtrl',
+        size: 'lg',
         resolve: {
           resolvedWidget: function () {
             return widget;

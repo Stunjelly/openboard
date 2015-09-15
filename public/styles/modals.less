@@ -7,12 +7,6 @@
     -webkit-box-shadow: none;
     box-shadow: none;
     padding: 5px;
-    -webkit-transition: -webkit-filter .3s;
-    -moz-transition: -webkit-filter .3s;
-    -ms-transition: -webkit-filter .3s;
-    -o-transition: -webkit-filter .3s;
-    transition: -webkit-filter .3s;
-    -webkit-filter: blur(10px);
     .modal-header {
       border-bottom: 0 solid @body-bg;
       position: relative;
@@ -39,22 +33,21 @@
     }
   }
 
-
-
   &.fade .modal-dialog {
     .translate(0, 5%);
     .transition-transform(~"0.15s ease-out");
   }
-  &.in .modal-dialog { .translate(0, 0)}
+  &.in .modal-dialog {
+    .translate(0, 0)
+  }
 }
 
 .modal-backdrop.in {
-  .opacity(0.0);
+  .opacity(0.4);
 }
 
 body.modal-open {
   .modal-content {
-    -webkit-filter: blur(0px);
   }
   .widget {
     .opacity(0.5);
@@ -63,18 +56,11 @@ body.modal-open {
     .opacity(0);
   }
   .ui-view-container {
-    -webkit-filter: blur(10px);
   }
 }
-.ui-view-container {
-  -webkit-transition: -webkit-filter 0.15s;
-  -moz-transition: -webkit-filter 0.15s;
-  -ms-transition: -webkit-filter 0.15s;
-  -o-transition: -webkit-filter 0.15s;
-  transition: -webkit-filter 0.15s;
-  -webkit-filter: blur(0px);
-}
 
+.ui-view-container {
+}
 
 // Fix angular-schema-forms when doing a full modal form (footer as json)
 .schema-form-actions.modal-footer.btn-group {
@@ -88,7 +74,6 @@ body.modal-open {
     }
   }
 }
-
 
 .btn {
   border: none;

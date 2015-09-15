@@ -1,0 +1,60 @@
+/* Required for Angular UI Bootstrap */
+.nav, .pagination, .carousel, .panel-title a {
+  cursor: pointer;
+}
+
+@dashboard-nav-animation-speed: 250ms;
+
+ul.dashboard-button-bar {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  &:hover {
+    li {
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+  }
+  li {
+    display: inline-block;
+    padding: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+    -webkit-transition: background-color @dashboard-nav-animation-speed;
+    -moz-transition: background-color @dashboard-nav-animation-speed;
+    -ms-transition: background-color @dashboard-nav-animation-speed;
+    -o-transition: background-color @dashboard-nav-animation-speed;
+    transition: background-color @dashboard-nav-animation-speed;
+    -webkit-border-radius: @border-radius-base;
+    -moz-border-radius: @border-radius-base;
+    border-radius: @border-radius-base;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    &:first-child {
+      border-bottom-left-radius: 0;
+    }
+    &:last-child {
+      border-bottom-right-radius: 0;
+    }
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+    a, span {
+      display: block;
+      padding: 7px 10px;
+      color: @panel-bg;
+      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+      font-size: 1.2em;
+    }
+    &.title {
+      //font-family: @brand-font-family;
+      font-weight: bold;
+    }
+  }
+  &.invert {
+    li {
+      background-color: @panel-bg;
+      a, span {
+        color: @text-color;
+      }
+    }
+  }
+}

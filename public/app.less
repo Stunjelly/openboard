@@ -1,12 +1,15 @@
 @import "lib/bootstrap/less/bootstrap.less";
-//@import "lib/bootstrap/less/theme.less";
 @import "lib/font-awesome/less/font-awesome.less";
 
+// Custom LESS
 @import "styles/_variables";
 @import "styles/modals";
 @import "styles/toastr";
 @import "styles/panels";
-
+@import "styles/layout";
+@import "styles/typography";
+@import "styles/navigation";
+@import "styles/forms";
 
 /* Component LESS */
 @import "partial/home/home.less";
@@ -15,76 +18,3 @@
 @import "partial/dashboard/delete/delete-dashboard.less";
 @import "partial/dashboard/edit-widget/edit-widget.less";
 /* Add Component LESS Above */
-
-/* Required for Angular UI Bootstrap */
-.nav, .pagination, .carousel, .panel-title a {
-  cursor: pointer;
-}
-
-h1, h2 {
-  font-family: @brand-font-family;
-}
-
-.ui-view-container {
-  //position : relative;
-}
-
-@uiview-speed: 0.2s;
-@uiview-x: 100px;
-
-[ui-view].ng-enter, [ui-view].ng-leave {
-  position: absolute;
-  left: 0;
-  right: 0;
-  -webkit-transition: all @uiview-speed ease-in-out;
-  -moz-transition: all @uiview-speed ease-in-out;
-  -o-transition: all @uiview-speed ease-in-out;
-  transition: all @uiview-speed ease-in-out;
-}
-
-[ui-view].ng-enter {
-  opacity: 0;
-  -webkit-transform: translate3d(@uiview-x, 0, 0);
-  -moz-transform: translate3d(@uiview-x, 0, 0);
-  transform: translate3d(@uiview-x, 0, 0);
-}
-
-[ui-view].ng-enter-active {
-  opacity: 1;
-  -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-}
-
-[ui-view].ng-leave {
-  opacity: 1;
-  -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-}
-
-[ui-view].ng-leave-active {
-  opacity: 0;
-  -webkit-transform: translate3d(-@uiview-x, 0, 0);
-  -moz-transform: translate3d(-@uiview-x, 0, 0);
-  transform: translate3d(-@uiview-x, 0, 0);
-}
-
-@font-face {
-  font-family: 'CuriousSans-Bold';
-  src: url("fonts/CuriousSans-Bold.otf") format("opentype");
-  src: url("fonts/CuriousSans-Bold.eot");
-  src: url("fonts/CuriousSans-Bold.eot?#iefix") format("embedded-opentype"),
-  url("fonts/CuriousSans-Bold.woff") format("woff"),
-  url("fonts/CuriousSans-Bold.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal
-}
-
-// Fix for bootstrap feedback icons
-.form-group {
-  position: relative;
-}
-.has-feedback label, .form-control-feedback {
-  top: 25px;
-}

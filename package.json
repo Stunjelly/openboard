@@ -19,6 +19,8 @@
     "morgan": "~1.0.0",
     "mysql": "^2.9.0",
     "sequelize": "~2.0.0-beta.2",
+    "sequelize-json": "^0.1.1",
+    "socket.io": "^1.3.6",
     "sqlite3": "~2.1.5"
   },
   "devDependencies": {

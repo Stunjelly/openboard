@@ -10,7 +10,7 @@
   "dependencies": {
     "angular": "~1.4.5",
     "angular-animate": "~1.4.5",
-    "angular-bootstrap": "~0.10",
+    "angular-bootstrap": "~0.13.4",
     "angular-cookies": "~1.4.5",
     "angular-mocks": "~1.4.5",
     "angular-resource": "~1.4.5",
@@ -37,6 +37,7 @@
     "angular-animate": "~1.4.5",
     "bootstrap": "~3.3.5",
     "font-awesome": "~4.4.0",
-    "angular-mocks": "~1.4.5"
+    "angular-mocks": "~1.4.5",
+    "angular-bootstrap": "~0.13.4"
   }
 }

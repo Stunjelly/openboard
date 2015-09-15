@@ -1,5 +1,6 @@
 require('dotenv').load();
 var express = require('express');
+var io = require('socket.io');
 var bodyParser = require('body-parser');
 var errorHandler = require('errorhandler');
 var methodOverride = require('method-override');
@@ -25,7 +26,11 @@ app.use(express.static(path.join(__dirname, process.env.NODE_ENV === 'developmen
 if (process.env.NODE_ENV === 'development') {
   app.use(errorHandler());
   app.use(function (req, res, next) {
-    req.ntlm = {"DomainName": "national", "UserName": process.env.DEV_USERNAME || "testUser", "Workstation": "stunjelly"};
+    req.ntlm = {
+      "DomainName": "national",
+      "UserName": process.env.DEV_USERNAME || "testUser",
+      "Workstation": "stunjelly"
+    };
     next();
   });
 } else {
@@ -38,8 +43,12 @@ db.sequelize.sync().complete(function (err) {
   if (err) {
     throw err
   } else {
-    http.createServer(app).listen(app.get('port'), function () {
+    var server = http.createServer(app).listen(app.get('port'), function () {
       console.log('Express server listening on port ' + app.get('port'))
-    })
+    });
+    io = io.listen(server);
+    io.on('connection', function (socket) {
+
+    });
   }
 });

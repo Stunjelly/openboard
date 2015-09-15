@@ -1,0 +1,41 @@
+
+.ui-view-container {
+  //position : relative;
+}
+[ui-view].ng-enter, [ui-view].ng-leave {
+  position: absolute;
+  left: 0;
+  right: 0;
+  -webkit-transition: all @uiview-speed ease-in-out;
+  -moz-transition: all @uiview-speed ease-in-out;
+  -o-transition: all @uiview-speed ease-in-out;
+  transition: all @uiview-speed ease-in-out;
+}
+
+[ui-view].ng-enter {
+  opacity: 0;
+  -webkit-transform: translate3d(@uiview-x, 0, 0);
+  -moz-transform: translate3d(@uiview-x, 0, 0);
+  transform: translate3d(@uiview-x, 0, 0);
+}
+
+[ui-view].ng-enter-active {
+  opacity: 1;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+[ui-view].ng-leave {
+  opacity: 1;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+[ui-view].ng-leave-active {
+  opacity: 0;
+  -webkit-transform: translate3d(-@uiview-x, 0, 0);
+  -moz-transform: translate3d(-@uiview-x, 0, 0);
+  transform: translate3d(-@uiview-x, 0, 0);
+}
