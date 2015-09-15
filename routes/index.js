@@ -13,6 +13,7 @@ exports = module.exports = function (app) {
   app.get('/api/dashboards/:dashboardId/widgets/:widgetId', widgets.find);
   app.post('/api/dashboards/:dashboardId/widgets', widgets.create);
   app.post('/api/dashboards/:dashboardId/widgets/:widgetId', widgets.update);
+  app.post('/api/dashboards/:dashboardId/widgets/:widgetId/data', widgets.updateClient);
   app.del('/api/dashboards/:dashboardId/widgets/:widgetId', widgets.destroy);
 
   app.get('/api/me', function (req, res) {

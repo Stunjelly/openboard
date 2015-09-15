@@ -1,0 +1,3 @@
+# About Openboard
+
+lorem ipsum
