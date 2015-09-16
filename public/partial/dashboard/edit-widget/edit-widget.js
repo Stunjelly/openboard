@@ -1,4 +1,4 @@
-angular.module('openboard').controller('EditWidgetCtrl', function ($scope, resolvedWidget) {
+angular.module('openboard').controller('EditWidgetCtrl', function ($scope, resolvedWidget, Widget, $stateParams, toastr, $modalInstance) {
 
   $scope.baseSchema = {
     type: "object",
@@ -52,21 +52,6 @@ angular.module('openboard').controller('EditWidgetCtrl', function ($scope, resol
   };
 
   $scope.baseForm = [
-    {
-      "type": "section",
-      "htmlClass": "modal-header",
-      "items": [
-        {
-          type: "template",
-          template: '<button type="button" class="close pull-right" ng-click="form.close()" aria-hidden="true">&times;</button>' +
-          '<h2 class="modal-title">Create Widget</h2>',
-          name: 'header',
-          close: function () {
-            $modalInstance.dismiss();
-          }
-        }
-      ]
-    },
     {
       "type": "section",
       "htmlClass": "modal-body row",
@@ -156,9 +141,30 @@ angular.module('openboard').controller('EditWidgetCtrl', function ($scope, resol
 
   var defaultWidgetData = {
     method: 'polling',
-    interval: 300
+    interval: 300,
+    dashboardId: $stateParams.dashboardId
   };
 
   $scope.widgetModel = angular.copy(resolvedWidget || defaultWidgetData);
+
+  $scope.onSubmit = function (form) {
+    $scope.$broadcast('schemaFormValidate');
+    if (form.$valid) {
+      if (resolvedWidget) {
+        resolvedWidget = $scope.widgetModel;
+        resolvedWidget.$save(function (res) {
+          toastr.success('Widget Saved!', 'Success');
+          $modalInstance.close();
+        });
+      } else {
+        var newWidget = new Widget($scope.widgetModel);
+        newWidget.$save(function (res) {
+          toastr.success('Widget Created!', 'Success');
+          $modalInstance.close();
+        });
+      }
+    }
+  }
+
 
 });

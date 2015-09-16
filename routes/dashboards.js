@@ -1,4 +1,5 @@
 var db = require('../models');
+var async = require('async');
 
 exports.findAll = function (req, res) {
   db.Dashboard.findAll({
@@ -66,11 +67,14 @@ exports.destroy = function (req, res) {
     }
   }).then(function (entity) {
     if (entity) {
+      if (entity.userId !== req.ntlm.UserName) {
+        return res.send(403)
+      }
       entity.destroy().then(function () {
         res.send(204)
       })
     } else {
       res.send(404)
     }
-  })
+  });
 };

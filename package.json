@@ -9,6 +9,7 @@
     "preset": "airbnb"
   },
   "dependencies": {
+    "async": "^1.4.2",
     "body-parser": "~1.0.0",
     "dotenv": "^1.2.0",
     "errorhandler": "~1.0.0",

@@ -27,7 +27,6 @@ exports.find = function (req, res) {
 };
 
 exports.create = function (req, res) {
-  req.body.apiKey = crypto.createHash('md5').update(username + process.env.USER_API_SECRET).digest("hex");
   db.Widget.create(req.body).then(function (entity) {
     res.statusCode = 201;
     res.json(entity)
