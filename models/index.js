@@ -10,7 +10,11 @@ var sequelize = new Sequelize(process.env.MYSQL_DB, process.env.MYSQL_USER, proc
   }
 });
 
-var Dashboard = sequelize.define('Dashboard', {
+/**
+ * Dashboard Model
+ * @type {Model}
+ */
+var Dashboard = sequelize.define('dashboard', {
   userId: {type: Sequelize.STRING, allowNull: false, len: [0, 40]},
   title: {type: Sequelize.STRING, allowNull: false, len: [0, 40]},
   'public': {type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false},
@@ -18,11 +22,10 @@ var Dashboard = sequelize.define('Dashboard', {
 });
 
 /**
- * Widget
+ * Widget Model
  * @type {Model}
  */
-var Widget = sequelize.define('Widget', {
-  dashboardId: {type: Sequelize.INTEGER, allowNull: false},
+var Widget = sequelize.define('widget', {
   title: {type: Sequelize.STRING, allowNull: false, len: [0, 100]},
   w: {type: Sequelize.INTEGER, allowNull: false, min: 1, max: 6, defaultValue: 1},
   h: {type: Sequelize.INTEGER, allowNull: false, min: 1, max: 6, defaultValue: 1},
@@ -30,27 +33,49 @@ var Widget = sequelize.define('Widget', {
   y: {type: Sequelize.INTEGER, allowNull: false, min: 0, max: 6, defaultValue: 0},
   apiKey: {type: Sequelize.STRING, allowNull: true, len: [0, 36], defaultValue: 'mykey'},
   method: {type: Sequelize.ENUM('push', 'polling'), allowNull: false},
-  type: {type: Sequelize.INTEGER, allowNull: false, min: 1, max: 20},
   interval: {type: Sequelize.INTEGER, allowNull: false, min: 30, max: 7200, defaultValue: 300},
   url: {type: Sequelize.STRING, allowNull: true},
   urlKey: {type: Sequelize.STRING, allowNull: true, len: [0, 36]},
-  cache: JsonField(sequelize, 'Widget', 'cache'),
-  config: JsonField(sequelize, 'Widget', 'config')
+  cache: JsonField(sequelize, 'widget', 'cache'),
+  config: JsonField(sequelize, 'widget', 'config')
 });
 
 /**
- * Widget Type
+ * Widget Type Model
  * This model has the front end schema and forms for updating the widget config
  * @type {Model}
  */
-var Type = sequelize.define('Type', {
+var Type = sequelize.define('type', {
   title: {type: Sequelize.STRING, allowNull: false, len: [0, 100]},
-  schema: JsonField(sequelize, 'Type', 'schema'),
-  form: JsonField(sequelize, 'Type', 'form'),
-  model: JsonField(sequelize, 'Type', 'model')
+  schema: JsonField(sequelize, 'type', 'schema'),
+  form: JsonField(sequelize, 'type', 'form'),
+  model: JsonField(sequelize, 'type', 'model')
 });
 
-//Widget.belongsTo(Dashboard);
+Widget.belongsTo(Dashboard);
+Widget.belongsTo(Type);
+
+/**
+ * Here we create our default Widget Types, these should
+ */
+Type.bulkCreate([
+  {id: 1, title: "Number and Secondary Stat"},
+  {id: 2, title: "Line Chart"},
+  {id: 3, title: "Bar/Column Chart"},
+  {id: 4, title: "Geck-o-Meter"},
+  {id: 5, title: "Leaderboard"},
+  {id: 6, title: "Text"},
+  {id: 7, title: "Mapping"},
+  {id: 8, title: "Funnel"},
+  {id: 9, title: "Bullet Graph"},
+  {id: 10, title: "Monitoring"},
+  {id: 11, title: "List"},
+  {id: 12, title: "Highcharts Chart"},
+  {id: 13, title: "RAG Numbers and RAG Column & Numbers"},
+  {id: 14, title: "Pie Chart"}
+]).catch(function (errors) {
+  // There will be errors!
+});
 
 module.exports = {
   Dashboard: Dashboard,
