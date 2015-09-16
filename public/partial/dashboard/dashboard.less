@@ -1,3 +1,19 @@
+.dashboard-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  &.dark {
+    background-color: darken(@text-color, 4%);
+    .widget > .inner {
+      background-color: @text-color !important;
+      color: @panel-bg;
+      text-shadow: 0px 0px 4px #000;
+    }
+  }
+}
+
 .grid-container {
   padding: 10px;
   .grid {

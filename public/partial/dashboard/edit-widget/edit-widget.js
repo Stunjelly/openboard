@@ -70,7 +70,7 @@ angular.module('openboard').controller('EditWidgetCtrl', function ($scope, resol
               ]
             },
             {
-              key: "type",
+              key: "typeId",
               type: "select",
               titleMap: [
                 {value: 1, name: "Number and Secondary Stat"},
