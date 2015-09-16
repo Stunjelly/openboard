@@ -1,5 +1,6 @@
 var dashboards = require('./dashboards');
 var widgets = require('./widgets');
+var types = require('./types');
 
 exports = module.exports = function (app) {
 
@@ -16,8 +17,8 @@ exports = module.exports = function (app) {
   app.post('/api/dashboards/:dashboardId/widgets/:widgetId/data', widgets.updateClient);
   app.del('/api/dashboards/:dashboardId/widgets/:widgetId', widgets.destroy);
 
-  app.get('/api/types', widgets.findAll);
-  app.get('/api/types/:typeId', widgets.find);
+  app.get('/api/types', types.findAll);
+  app.get('/api/types/:typeId', types.find);
 
   app.get('/api/me', function (req, res) {
     console.log(req.ntlm);

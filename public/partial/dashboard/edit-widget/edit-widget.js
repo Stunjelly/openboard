@@ -12,9 +12,9 @@ angular.module('openboard').controller('EditWidgetCtrl', function ($scope, resol
           placeholder: "My Awesome Widget"
         }
       },
-      type: {
+      typeId: {
         type: "number",
-        title: "Type",
+        title: "Custom Type",
         description: "Pick the type of widget you want. See docs for examples.",
         required: true
       },
@@ -34,10 +34,10 @@ angular.module('openboard').controller('EditWidgetCtrl', function ($scope, resol
       url: {
         type: "string",
         title: "URL",
-        description: "Feed URL",
+        description: "Data URL",
         required: true,
         "x-schema-form": {
-          placeholder: "http://api.yourdomain.com/v1/data/1"
+          placeholder: "http://api.example.com/v1/data/1?query=params"
         }
       },
       urlKey: {
@@ -142,7 +142,8 @@ angular.module('openboard').controller('EditWidgetCtrl', function ($scope, resol
   var defaultWidgetData = {
     method: 'polling',
     interval: 300,
-    dashboardId: $stateParams.dashboardId
+    dashboardId: $stateParams.dashboardId,
+    typeId: 1
   };
 
   $scope.widgetModel = angular.copy(resolvedWidget || defaultWidgetData);

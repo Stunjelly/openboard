@@ -31,7 +31,6 @@ var Widget = sequelize.define('widget', {
   h: {type: Sequelize.INTEGER, allowNull: false, min: 1, max: 6, defaultValue: 1},
   x: {type: Sequelize.INTEGER, allowNull: false, min: 0, max: 6, defaultValue: 0},
   y: {type: Sequelize.INTEGER, allowNull: false, min: 0, max: 6, defaultValue: 0},
-  apiKey: {type: Sequelize.STRING, allowNull: true, len: [0, 36], defaultValue: 'mykey'},
   method: {type: Sequelize.ENUM('push', 'polling'), allowNull: false},
   interval: {type: Sequelize.INTEGER, allowNull: false, min: 30, max: 7200, defaultValue: 300},
   url: {type: Sequelize.STRING, allowNull: true},
@@ -59,20 +58,20 @@ Widget.belongsTo(Type);
  * Here we create our default Widget Types, these should
  */
 Type.bulkCreate([
-  {id: 1, title: "Number and Secondary Stat"},
-  {id: 2, title: "Line Chart"},
-  {id: 3, title: "Bar/Column Chart"},
-  {id: 4, title: "Geck-o-Meter"},
-  {id: 5, title: "Leaderboard"},
-  {id: 6, title: "Text"},
-  {id: 7, title: "Mapping"},
-  {id: 8, title: "Funnel"},
-  {id: 9, title: "Bullet Graph"},
-  {id: 10, title: "Monitoring"},
-  {id: 11, title: "List"},
-  {id: 12, title: "Highcharts Chart"},
-  {id: 13, title: "RAG Numbers and RAG Column & Numbers"},
-  {id: 14, title: "Pie Chart"}
+  {id: 1, title: "Number and Secondary Stat", schema: {}, form: {}, model: {}},
+  {id: 2, title: "Line Chart", schema: {}, form: {}, model: {}},
+  {id: 3, title: "Bar/Column Chart", schema: {}, form: {}, model: {}},
+  {id: 4, title: "Geck-o-Meter", schema: {}, form: {}, model: {}},
+  {id: 5, title: "Leaderboard", schema: {}, form: {}, model: {}},
+  {id: 6, title: "Text", schema: {}, form: {}, model: {}},
+  {id: 7, title: "Mapping", schema: {}, form: {}, model: {}},
+  {id: 8, title: "Funnel", schema: {}, form: {}, model: {}},
+  {id: 9, title: "Bullet Graph", schema: {}, form: {}, model: {}},
+  {id: 10, title: "Monitoring", schema: {}, form: {}, model: {}},
+  {id: 11, title: "List", schema: {}, form: {}, model: {}},
+  {id: 12, title: "Highcharts Chart", schema: {}, form: {}, model: {}},
+  {id: 13, title: "RAG Numbers and RAG Column & Numbers", schema: {}, form: {}, model: {}},
+  {id: 14, title: "Pie Chart", schema: {}, form: {}, model: {}}
 ]).catch(function (errors) {
   // There will be errors!
 });
