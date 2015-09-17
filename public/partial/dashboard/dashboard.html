@@ -1,4 +1,4 @@
-<div ng-controller="DashboardCtrl" class="dashboard-container">
+<div ng-controller="DashboardCtrl" class="dashboard-container dark">
   <div class="expand">
     <ul class="dashboard-button-bar">
       <li><a ui-sref="home" tooltip="Back to start" tooltip-placement="right"><i class="fa fa-fw fa-arrow-left"></i></a></li>
@@ -11,12 +11,8 @@
   </div>
   <div class="grid-container">
     <ul class="grid" id="grid">
-      <li ng-repeat="widget in widgets track by widget.id" class="widget">
-        <div class="inner">
-          <div class="title">{{widget.title}} <span class="text-muted">ID{{widget.id}}</span></div>
-          <h1>51,837</h1>
-          <a href="" ng-click="editWidget(widget)">edit</a>
-        </div>
+      <li ng-repeat="widget in widgets track by widget.id">
+        <ob-widget widget="widget"></ob-widget>
       </li>
     </ul>
   </div>

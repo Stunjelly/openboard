@@ -1,0 +1,21 @@
+svg.sparkline {
+  display: inline-block;
+  width: 220px;
+  height: 80px;
+  margin-top: 10px;
+
+  vertical-align: middle;
+  stroke: @brand-info;
+  stroke-width: 2;
+  text {
+    fill: lighten(@text-muted, 35%);
+    stroke-width: 0;
+    font-size: 20px;
+  }
+  path {
+    fill: none;
+  }
+  circle {
+    fill: none;
+  }
+}

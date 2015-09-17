@@ -45,7 +45,7 @@ angular.module('openboard').controller('EditWidgetCtrl', function ($scope, resol
         title: "URL Key (optional)",
         description: "If you specify an API key it will be sent as the username for HTTP basic auth in the request. The password will be set to “X”.",
         "x-schema-form": {
-          placeholder: "mYsEcReTKeY!@£$%^&*()"
+          placeholder: ""
         }
       }
     }

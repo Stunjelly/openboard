@@ -46,6 +46,9 @@ angular.module('openboard').controller('DashboardCtrl', function ($scope, $state
           }
         }
       }).result.then(function (result) {
+        if (result) {
+          widget = result;
+        }
       });
   }
 

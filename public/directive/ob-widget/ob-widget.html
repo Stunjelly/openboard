@@ -1,0 +1,18 @@
+<div class="widget">
+  <div class="inner">
+    <div class="title">
+      {{widget.title}}
+      <ul class="list-inline pull-right widget-buttons">
+        <li>
+          <a href="" ng-click="editWidget(widget)">edit</a>
+        </li>
+        <li>
+          <a href="" ng-click="editWidget(widget)">delete</a>
+        </li>
+      </ul>
+    </div>
+
+    <h1>{{widget.cache.item[0].value | number}}</h1>
+    <sparkline data="widget.cache.item[1]"></sparkline>
+  </div>
+</div>
