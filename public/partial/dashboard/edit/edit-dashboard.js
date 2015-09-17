@@ -10,6 +10,13 @@ angular.module('openboard').controller('EditDashboardCtrl', function ($scope, re
         title: "Title",
         description: "Name of the dashboard"
       },
+      theme: {
+        type: "string",
+        title: "Theme",
+        description: "",
+        required: false,
+        'enum': ['default', 'dark']
+      },
       "public": {
         type: "boolean",
         title: "Public",

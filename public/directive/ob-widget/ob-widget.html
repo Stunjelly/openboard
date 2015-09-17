@@ -2,17 +2,20 @@
   <div class="inner">
     <div class="title">
       {{widget.title}}
-      <ul class="list-inline pull-right widget-buttons">
+    </div>
+    <div class="body">
+      <h1>{{widget.cache.item[0].value | number}}</h1>
+      <sparkline data="widget.cache.item[1]"></sparkline>
+    </div>
+    <div class="footer">
+      <ul class="list-inline widget-buttons">
         <li>
-          <a href="" ng-click="editWidget(widget)">edit</a>
+          <a href="" ng-click="editWidget(widget)">Edit</a>
         </li>
         <li>
-          <a href="" ng-click="editWidget(widget)">delete</a>
+          <a href="" ng-click="editWidget(widget)">Delete</a>
         </li>
       </ul>
     </div>
-
-    <h1>{{widget.cache.item[0].value | number}}</h1>
-    <sparkline data="widget.cache.item[1]"></sparkline>
   </div>
 </div>

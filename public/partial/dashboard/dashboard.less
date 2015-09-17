@@ -25,15 +25,16 @@
       .widget {
         padding: 10px;
         display: inline-flex;
-        .widget-buttons {
+        .footer {
           .opacity(0);
         }
         &:hover {
-          .widget-buttons {
+          .footer {
             .opacity(1);
           }
         }
         .inner {
+          position: relative;
           padding: 15px;
           background-color: @panel-bg;
           -webkit-border-radius: @border-radius-base;
@@ -45,6 +46,14 @@
             margin-bottom: 20px;
             font-weight: 200;
             letter-spacing: 1px;
+          }
+          .footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0,0,0,0.2);
+            padding: 8px 13px;
           }
           h1 {
             font-size: 70px;

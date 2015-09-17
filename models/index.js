@@ -18,6 +18,8 @@ var Dashboard = sequelize.define('dashboard', {
   userId: {type: Sequelize.STRING, allowNull: false, len: [0, 40]},
   title: {type: Sequelize.STRING, allowNull: false, len: [0, 40]},
   'public': {type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false},
+  theme: {type: Sequelize.STRING, allowNull: true, len: [3, 36]},
+  customStyle: {type: Sequelize.TEXT, allowNull: true},
   columns: {type: Sequelize.INTEGER, allowNull: false, defaultValue: 3, len: [3, 6]}
 });
 
