@@ -1,4 +1,4 @@
-angular.module('openboard').controller('DashboardCtrl', function ($scope, $stateParams, Dashboard, Widget, $modal) {
+angular.module('openboard').controller('DashboardCtrl', function ($scope, $stateParams, Dashboard, Widget, $modal, $window) {
 
   // Get dashboard
   $scope.dashboard = Dashboard.get({dashboardId: $stateParams.dashboardId});
@@ -50,6 +50,6 @@ angular.module('openboard').controller('DashboardCtrl', function ($scope, $state
           widget = result;
         }
       });
-  }
+  };
 
 });

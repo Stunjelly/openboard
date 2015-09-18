@@ -11,9 +11,7 @@
   </div>
   <div class="grid-container">
     <ul class="grid" id="grid">
-      <li ng-repeat="widget in widgets track by widget.id">
-        <ob-widget widget="widget"></ob-widget>
-      </li>
+      <ob-widget widget="widget" ng-repeat="widget in widgets track by widget.id"></ob-widget>
     </ul>
   </div>
 

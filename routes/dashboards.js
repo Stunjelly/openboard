@@ -50,7 +50,8 @@ exports.update = function (req, res) {
     if (entity) {
       entity.updateAttributes({
         title: req.body.title,
-        'public': req.body.public
+        'public': req.body.public,
+        theme: req.body.theme
       }).then(function (entity) {
         res.json(entity)
       })
