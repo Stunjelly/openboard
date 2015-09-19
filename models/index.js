@@ -35,7 +35,7 @@ var Widget = sequelize.define('widget', {
   x: {type: Sequelize.INTEGER, allowNull: false, min: 0, max: 6, defaultValue: 0},
   y: {type: Sequelize.INTEGER, allowNull: false, min: 0, max: 6, defaultValue: 0},
   method: {type: Sequelize.ENUM('push', 'polling'), allowNull: false},
-  interval: {type: Sequelize.INTEGER, allowNull: true, min: 30, max: 7200, defaultValue: 300},
+  reload: {type: Sequelize.INTEGER, allowNull: true, min: 30, max: 7200, defaultValue: 300},
   url: {type: Sequelize.STRING, allowNull: true},
   urlKey: {type: Sequelize.STRING, allowNull: true, len: [0, 36]},
   cache: JsonField(sequelize, 'widget', 'cache'),
