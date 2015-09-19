@@ -17,6 +17,18 @@ var tables = {
     dashboardId: 1, title: 'Widget 1', method: 'polling', url: 'http://example.com',
     cache: {"item": [{"value": 1999}, [477, 487, 372, 324, 339]]},
     config: {}
+  },{
+    dashboardId: 1, title: 'Widget 2', method: 'polling', url: 'http://example.com',
+    cache: {"item": [{"value": 1999}, [477, 487, 372, 324, 339]]},
+    config: {}
+  },{
+    dashboardId: 3, title: 'Widget 1', method: 'polling', url: 'http://example.com',
+    cache: {"item": [{"value": 1999}, [477, 487, 372, 324, 339]]},
+    config: {}
+  },{
+    dashboardId: 3, title: 'Widget 2', method: 'polling', url: 'http://example.com',
+    cache: {"item": [{"value": 1999}, [477, 487, 372, 324, 339]]},
+    config: {}
   }]
 };
 
@@ -25,7 +37,7 @@ describe('API', function () {
   // Setup database default data
   beforeEach(function (done) {
     db.sequelize.sync()
-      .then(function() {
+      .then(function () {
         return db.Dashboard.bulkCreate(tables.dashboards);
       })
       .then(function () {
@@ -63,7 +75,8 @@ describe('API', function () {
   describe('Dashboards', function () {
 
     var testDashboard = {
-      title: 'New Dashboard'
+      title: 'New Dashboard',
+      userId: 'not_testuser'
     };
 
     describe('GET /api/dashboards', function () {
@@ -113,49 +126,50 @@ describe('API', function () {
       });
     });
 
-    it('POST /api/dashboards should add a SINGLE dashboard', function (done) {
-      chai.request(server)
-        .post('/api/dashboards')
-        .send(testDashboard)
-        .end(function (err, res) {
-          res.should.have.status(201);
-          res.body.should.be.a('object');
-          res.body.should.have.property('title').be.a('string').equal(testDashboard.title);
-          res.body.should.have.property('userId').be.a('string').equal('testuser');
-
-          // Make sure defaults are correct
-          res.body.should.have.property('public').be.a('boolean').equal(false);
-          res.body.should.have.property('theme').be.a('string').equal('dark');
-
-          // dashboards should have timestamps
-          res.body.should.have.property('createdAt').be.a('string');
-          res.body.should.have.property('updatedAt').be.a('string');
-          testDashboard = res.body;
-          done();
-        });
-    });
-
-    it('POST /api/dashboards/:dashboardId should update a SINGLE dashboard', function (done) {
-      var dashboardTitle = 'Dashboard 1 Updated';
-      // Waiting 1 second so that createdAt and updatedAt timestamps are different
-      setTimeout(function () {
+    describe('POST /api/dashboards', function () {
+      it('should add a SINGLE dashboard', function (done) {
         chai.request(server)
-          .post('/api/dashboards/1')
-          .send({
-            title: dashboardTitle,
-            theme: 'default',
-            columns: 6,
-            customStyle: 'body{background-color:yellow"}'
-          })
+          .post('/api/dashboards')
+          .send(testDashboard)
           .end(function (err, res) {
-            res.should.have.status(200);
+            res.should.have.status(201);
             res.body.should.be.a('object');
-            res.body.should.have.property('title').be.a('string').equal(dashboardTitle);
-            res.body.updatedAt.should.not.equal(res.body.createdAt);
+            res.body.should.have.property('title').be.a('string').equal(testDashboard.title);
+
+            // API should not be able to set the userId
+            res.body.should.have.property('userId').be.a('string').equal('testuser');
+
+            // Make sure defaults are correct
+            res.body.should.have.property('public').be.a('boolean').equal(false);
+            res.body.should.have.property('theme').be.a('string').equal('dark');
+
+            // dashboards should have timestamps
+            res.body.should.have.property('createdAt').be.a('string');
+            res.body.should.have.property('updatedAt').be.a('string');
             testDashboard = res.body;
             done();
           });
-      }, 1000);
+      });
+    });
+
+
+    it('POST /api/dashboards/:dashboardId should update a SINGLE dashboard', function (done) {
+      var dashboardTitle = 'Dashboard 1 Updated';
+      chai.request(server)
+        .post('/api/dashboards/1')
+        .send({
+          title: dashboardTitle,
+          theme: 'default',
+          columns: 6,
+          customStyle: 'body{background-color:yellow"}'
+        })
+        .end(function (err, res) {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('title').be.a('string').equal(dashboardTitle);
+          testDashboard = res.body;
+          done();
+        });
     });
 
     it('DELETE /api/dashboards/:dashboardId should delete a SINGLE dashboard', function (done) {
@@ -173,9 +187,15 @@ describe('API', function () {
    * Widget API Tests
    */
   describe('Widgets', function () {
-
+    describe('GET /api/dashboards/:dashboardId/widgets', function () {
+      it('should return a list of widgets');
+    });
+    describe('POST /api/dashboards/:dashboardId/widgets', function () {
+      it('should create a new widget');
+      it('should not be allowed to create a widget on someone else\'s dashboard');
+      it('should not be allowed to set the cache');
+    });
   });
-
 
   /**
    * Widget Types API Tests
