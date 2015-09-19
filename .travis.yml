@@ -5,7 +5,7 @@ branches:
   only:
     - master
 env:
-  - DB=mysql
+  - NODE_ENV=test
 before_script:
   - npm install -g bower
   - npm install -g mocha
