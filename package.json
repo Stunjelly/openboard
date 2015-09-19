@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "node start.js",
-    "test": "NODE_ENV=test mocha --recursive"
+    "test": "NODE_ENV=test mocha -R spec --recursive"
   },
   "jscsConfig": {
     "preset": "airbnb"

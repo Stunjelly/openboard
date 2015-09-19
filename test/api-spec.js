@@ -17,15 +17,15 @@ var tables = {
     dashboardId: 1, title: 'Widget 1', method: 'polling', url: 'http://example.com',
     cache: {"item": [{"value": 1999}, [477, 487, 372, 324, 339]]},
     config: {}
-  },{
+  }, {
     dashboardId: 1, title: 'Widget 2', method: 'polling', url: 'http://example.com',
     cache: {"item": [{"value": 1999}, [477, 487, 372, 324, 339]]},
     config: {}
-  },{
+  }, {
     dashboardId: 3, title: 'Widget 1', method: 'polling', url: 'http://example.com',
     cache: {"item": [{"value": 1999}, [477, 487, 372, 324, 339]]},
     config: {}
-  },{
+  }, {
     dashboardId: 3, title: 'Widget 2', method: 'polling', url: 'http://example.com',
     cache: {"item": [{"value": 1999}, [477, 487, 372, 324, 339]]},
     config: {}
@@ -187,7 +187,9 @@ describe('API', function () {
    * Widget API Tests
    */
   describe('Widgets', function () {
+
     describe('GET /api/dashboards/:dashboardId/widgets', function () {
+
       it('should return a list of widgets for a dashboard', function (done) {
         chai.request(server)
           .get('/api/dashboards/1/widgets')
@@ -197,6 +199,7 @@ describe('API', function () {
             done();
           });
       });
+
       it('should return 403 Forbidden when trying to get another users widgets', function (done) {
         chai.request(server)
           .get('/api/dashboards/3/widgets')
@@ -205,18 +208,96 @@ describe('API', function () {
             done();
           });
       });
+
+      it('should return 404 for an unknown dashboard', function (done) {
+        chai.request(server)
+          .get('/api/dashboards/999/widgets')
+          .end(function (err, res) {
+            res.should.have.status(404);
+            done();
+          });
+      });
+
     });
+
     describe('POST /api/dashboards/:dashboardId/widgets', function () {
-      it('should create a new widget');
-      it('should not be allowed to create a widget on someone else\'s dashboard');
-      it('should not be allowed to set the cache');
+      var newWidget = {
+        "typeId": 1,
+        "title": "Weekly Users",
+        "method": "polling", "reload": 600,
+        "cache": {"item": [{"value": 1928}, [487, 372, 324, 339, 406]]},
+        "url": "https://csgoloot.com/api/geckoboard/number/users?days=5"
+      };
+
+      it('should create a new widget', function (done) {
+        chai.request(server)
+          .post('/api/dashboards/1/widgets')
+          .send(newWidget)
+          .end(function (err, res) {
+            res.should.have.status(201);
+            res.body.should.be.a('object');
+            res.body.should.not.have.property('cache');
+            res.body.should.have.property('title').be.a('string').equal(newWidget.title);
+            res.body.should.have.property('x').be.a('number').equal(0);
+            res.body.should.have.property('y').be.a('number').equal(0);
+            res.body.should.have.property('w').be.a('number').equal(1);
+            res.body.should.have.property('h').be.a('number').equal(1);
+            res.body.should.have.property('createdAt').be.a('string');
+            res.body.should.have.property('updatedAt').be.a('string');
+            done();
+          });
+      });
+
+      it('should not be allowed to create a widget on someone else\'s dashboard', function (done) {
+        chai.request(server)
+          .post('/api/dashboards/3/widgets')
+          .send(newWidget)
+          .end(function (err, res) {
+            res.should.have.status(403);
+            done();
+          });
+      });
+
     });
+
     describe('POST /api/dashboards/:dashboardId/widgets/:widgetId', function () {
-      it('should update a current widget');
-      it('should return 404 Not Found on an unknown widget or dashboard');
-      it('should not be allowed to create a widget on someone else\'s dashboard');
-      it('should not be allowed to set the cache');
+
+      var updateWidget = {title: 'New Widget Title', x: 270};
+
+      it('should update a current widget', function (done) {
+        chai.request(server)
+          .post('/api/dashboards/1/widgets/1')
+          .send(updateWidget)
+          .end(function (err, res) {
+            res.should.have.status(200);
+            res.body.title.should.equal(updateWidget.title);
+            res.body.x.should.equal(updateWidget.x);
+            done();
+          });
+      });
+
+      it('should return 404 Not Found on an unknown widget', function (done) {
+        chai.request(server)
+          .post('/api/dashboards/1/widgets/999')
+          .send(updateWidget)
+          .end(function (err, res) {
+            res.should.have.status(404);
+            done();
+          });
+      });
+
+      it('should return 403 on someone else\'s widget', function (done) {
+        chai.request(server)
+          .post('/api/dashboards/3/widgets/3')
+          .send(updateWidget)
+          .end(function (err, res) {
+            res.should.have.status(403);
+            done();
+          });
+      });
+
     });
+
   });
 
   /**
