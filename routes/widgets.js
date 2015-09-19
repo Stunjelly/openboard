@@ -1,5 +1,8 @@
 var db = require('../models');
 var crypto = require('crypto');
+var _ = require('lodash');
+
+var allowedKeys = ['title', 'w', 'h', 'x', 'y', 'method', 'reload', 'url', 'urlKey', 'config'];
 
 exports.findAll = function (req, res) {
   db.Widget.findAll({where: {dashboardId: req.param('dashboardId')}}).then(function (entities) {
@@ -27,7 +30,8 @@ exports.find = function (req, res) {
 };
 
 exports.create = function (req, res) {
-  db.Widget.create(req.body).then(function (entity) {
+  var createBody = _.pick(req.body, allowedKeys);
+  db.Widget.create(createBody).then(function (entity) {
     res.statusCode = 201;
     res.json(entity)
   }, function (err) {
@@ -43,7 +47,8 @@ exports.update = function (req, res) {
     }
   }).then(function (entity) {
     if (entity) {
-      entity.updateAttributes(req.body).then(function (entity) {
+      var update = _.pick(req.body, allowedKeys);
+      entity.updateAttributes(update).then(function (entity) {
         res.json(entity)
       })
     } else {

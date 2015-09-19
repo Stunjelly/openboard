@@ -2,6 +2,8 @@ var db = require('../models');
 var _ = require('lodash');
 var async = require('async');
 
+var allowedKeys = ['title', 'public', 'theme', 'customStyle', 'columns'];
+
 exports.findAll = function (req, res) {
   db.Dashboard.findAll({
     where: {userId: req.ntlm.UserName},
@@ -16,7 +18,7 @@ exports.findAll = function (req, res) {
 };
 
 exports.find = function (req, res) {
-  db.Dashboard.findOne(req.param('dashboardId')).then(function (entity) {
+  db.Dashboard.findById(req.param('dashboardId')).then(function (entity) {
     if (entity) {
       if (entity.userId !== req.ntlm.UserName) {
         return res.send(403)
@@ -50,7 +52,7 @@ exports.update = function (req, res) {
   };
   db.Dashboard.find(query).then(function (entity) {
     if (entity) {
-      var update = _.pick(req.body, ['title', 'public', 'theme', 'customStyle', 'columns']);
+      var update = _.pick(req.body, allowedKeys);
       entity.updateAttributes(update).then(function (entity) {
         res.json(entity)
       })

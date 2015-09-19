@@ -49,7 +49,7 @@ var Widget = sequelize.define('widget', {
  */
 var Type = sequelize.define('type', {
   title: {type: Sequelize.STRING, allowNull: false, len: [0, 100]},
-  schema: JsonField(sequelize, 'type', 'schema'),
+  fields: JsonField(sequelize, 'type', 'fields'),
   form: JsonField(sequelize, 'type', 'form'),
   model: JsonField(sequelize, 'type', 'model')
 });

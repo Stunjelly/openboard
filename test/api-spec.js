@@ -1,8 +1,8 @@
 var chai = require('chai');
 var chaiHttp = require('chai-http');
+var db = require('../models');
 var server = require('../app');
 var should = chai.should();
-var db = require('../models');
 
 chai.use(chaiHttp);
 
@@ -138,7 +138,12 @@ describe('API', function () {
       setTimeout(function () {
         chai.request(server)
           .post('/api/dashboards/1')
-          .send({title: dashboardTitle, theme: 'default', columns: 6, customStyle: 'body{background-color:yellow"}'})
+          .send({
+            title: dashboardTitle,
+            theme: 'default',
+            columns: 6,
+            customStyle: 'body{background-color:yellow"}'
+          })
           .end(function (err, res) {
             res.should.have.status(200);
             res.body.should.be.a('object');

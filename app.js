@@ -2,7 +2,6 @@ if (process.env.NODE_ENV !== 'test') {
   require('dotenv').load();
 }
 var express = require('express');
-var io = require('socket.io');
 var bodyParser = require('body-parser');
 var errorHandler = require('errorhandler');
 var methodOverride = require('method-override');
@@ -42,18 +41,16 @@ if (process.env.NODE_ENV === 'production') {
 
 require('./routes')(app);
 
-db.sequelize.sync().complete(function (err) {
-  if (err) {
-    throw err
-  } else {
-    var server = http.createServer(app).listen(app.get('port'), function () {
-      console.log('Express server listening on port ' + app.get('port'))
-    });
-    io = io.listen(server);
-    io.on('connection', function (socket) {
+db.sequelize.sync().then(function() {
 
-    });
-  }
+  var server = http.createServer(app).listen(app.get('port'), function () {
+    console.log('Express server listening on port ' + app.get('port'))
+  });
+
+  // Sockets
+  io = require('socket.io').listen(server);
+  require('./sockets.js')(io);
+
 });
 
 module.exports = app;

@@ -25,7 +25,7 @@ angular.module('openboard').controller('EditWidgetCtrl', function ($scope, resol
         required: true,
         'enum': ['push', 'polling']
       },
-      interval: {
+      reload: {
         type: "number",
         title: "Interval",
         description: "How often do you want the data to refresh.",
@@ -104,7 +104,7 @@ angular.module('openboard').controller('EditWidgetCtrl', function ($scope, resol
               condition: "widgetModel.method === 'polling'"
             },
             {
-              key: "interval",
+              key: "reload",
               type: "select",
               condition: "widgetModel.method === 'polling'",
               titleMap: [
@@ -141,7 +141,7 @@ angular.module('openboard').controller('EditWidgetCtrl', function ($scope, resol
 
   var defaultWidgetData = {
     method: 'polling',
-    interval: 300,
+    reload: 300,
     dashboardId: $stateParams.dashboardId,
     typeId: 1
   };
