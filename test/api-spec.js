@@ -188,10 +188,32 @@ describe('API', function () {
    */
   describe('Widgets', function () {
     describe('GET /api/dashboards/:dashboardId/widgets', function () {
-      it('should return a list of widgets');
+      it('should return a list of widgets for a dashboard', function (done) {
+        chai.request(server)
+          .get('/api/dashboards/1/widgets')
+          .end(function (err, res) {
+            res.should.have.status(200);
+            res.body.should.be.a('array');
+            done();
+          });
+      });
+      it('should return 403 Forbidden when trying to get another users widgets', function (done) {
+        chai.request(server)
+          .get('/api/dashboards/3/widgets')
+          .end(function (err, res) {
+            res.should.have.status(403);
+            done();
+          });
+      });
     });
     describe('POST /api/dashboards/:dashboardId/widgets', function () {
       it('should create a new widget');
+      it('should not be allowed to create a widget on someone else\'s dashboard');
+      it('should not be allowed to set the cache');
+    });
+    describe('POST /api/dashboards/:dashboardId/widgets/:widgetId', function () {
+      it('should update a current widget');
+      it('should return 404 Not Found on an unknown widget or dashboard');
       it('should not be allowed to create a widget on someone else\'s dashboard');
       it('should not be allowed to set the cache');
     });

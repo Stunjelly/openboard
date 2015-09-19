@@ -39,7 +39,7 @@ if (process.env.NODE_ENV === 'production') {
 require('./routes')(app);
 
 var server = http.createServer(app).listen(app.get('port'), function () {
-  console.log('Express server listening on port ' + app.get('port'))
+  console.log('Openboard listening on port ' + app.get('port'));
 });
 
 // Sockets
