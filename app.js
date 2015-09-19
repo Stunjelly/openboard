@@ -1,6 +1,3 @@
-if (process.env.NODE_ENV !== 'test') {
-  require('dotenv').load();
-}
 var express = require('express');
 var bodyParser = require('body-parser');
 var errorHandler = require('errorhandler');
@@ -41,16 +38,12 @@ if (process.env.NODE_ENV === 'production') {
 
 require('./routes')(app);
 
-db.sequelize.sync().then(function() {
-
-  var server = http.createServer(app).listen(app.get('port'), function () {
-    console.log('Express server listening on port ' + app.get('port'))
-  });
-
-  // Sockets
-  io = require('socket.io').listen(server);
-  require('./sockets.js')(io);
-
+var server = http.createServer(app).listen(app.get('port'), function () {
+  console.log('Express server listening on port ' + app.get('port'))
 });
+
+// Sockets
+io = require('socket.io').listen(server);
+require('./sockets.js')(io);
 
 module.exports = app;

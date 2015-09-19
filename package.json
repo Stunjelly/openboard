@@ -9,7 +9,7 @@
     "type": "git"
   },
   "scripts": {
-    "start": "node app.js",
+    "start": "node start.js",
     "test": "NODE_ENV=test mocha --recursive"
   },
   "jscsConfig": {
