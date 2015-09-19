@@ -1,14 +1,3 @@
-// TODO: tidy up env for test
-process.env.MYSQL_DB = 'openboard_tests';
-process.env.MYSQL_HOST = 'localhost';
-process.env.MYSQL_USER = 'root';
-process.env.MYSQL_PASS = 'root';
-process.env.LDAP_DOMAIN = 'national';
-process.env.LDAP_CONTROLLER = 'ldap://national.core.bbc.co.uk';
-process.env.DEV_USERNAME = 'testuser';
-process.env.PORT = 3001;
-process.env.USER_API_SECRET = '';
-
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var server = require('../app');

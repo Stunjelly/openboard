@@ -1,4 +1,6 @@
-require('dotenv').load();
+if (process.env.NODE_ENV !== 'test') {
+  require('dotenv').load();
+}
 var express = require('express');
 var io = require('socket.io');
 var bodyParser = require('body-parser');
