@@ -9,11 +9,15 @@ exports.findAll = function (req, res) {
 };
 
 exports.find = function (req, res) {
-  db.Type.find({
+  var query = {
     where: {
       id: req.param('typeId')
     }
-  }).then(function (entity) {
+  };
+  if (req.param('field')) {
+    query.attributes = req.param('field').split(',');
+  }
+  db.Type.find(query).then(function (entity) {
     if (entity) {
       res.json(entity)
     } else {

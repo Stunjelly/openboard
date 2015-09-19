@@ -18,7 +18,7 @@ exports = module.exports = function (app) {
   app.del('/api/dashboards/:dashboardId/widgets/:widgetId', widgets.destroy);
 
   app.get('/api/types', types.findAll);
-  app.get('/api/types/:typeId', types.find);
+  app.get('/api/types/:typeId/:field?', types.find);
 
   app.get('/api/me', function (req, res) {
     console.log(req.ntlm);

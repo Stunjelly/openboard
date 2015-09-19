@@ -3,6 +3,7 @@ var JsonField = require('sequelize-json');
 var sequelize = new Sequelize(process.env.MYSQL_DB, process.env.MYSQL_USER, process.env.MYSQL_PASS, {
   host: process.env.MYSQL_HOST,
   dialect: 'mysql',
+  logging: process.env.NODE_ENV === 'development' ? console.warn : false,
   pool: {
     max: 5,
     min: 0,
@@ -53,11 +54,14 @@ var Type = sequelize.define('type', {
   model: JsonField(sequelize, 'type', 'model')
 });
 
+/**
+ * Setup Relationships
+ */
 Widget.belongsTo(Dashboard);
 Widget.belongsTo(Type);
 
 /**
- * Here we create our default Widget Types, these should
+ * Here we create our default Widget Types, these should move to ./widgets dir as they will pack out quite a bit
  */
 Type.bulkCreate([
   {id: 1, title: "Number and Secondary Stat", schema: {}, form: {}, model: {}},

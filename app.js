@@ -40,7 +40,7 @@ if (process.env.NODE_ENV === 'production') {
 
 require('./routes')(app);
 
-db.sequelize.sync({logging: false}).complete(function (err) {
+db.sequelize.sync().complete(function (err) {
   if (err) {
     throw err
   } else {
