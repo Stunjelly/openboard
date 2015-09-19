@@ -24,7 +24,10 @@ describe('API', function () {
 
   // Setup database default data
   beforeEach(function (done) {
-    db.Dashboard.bulkCreate(tables.dashboards)
+    db.sequelize.sync()
+      .then(function() {
+        return db.Dashboard.bulkCreate(tables.dashboards);
+      })
       .then(function () {
         return db.Widget.bulkCreate(tables.widgets);
       })
