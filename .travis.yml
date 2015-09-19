@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - 0.12
+branches:
+  only:
+    - master
+env:
+  - DB=mysql
+before_script:
+  - npm install -g bower
+  - npm install -g mocha
+  - npm install -g karma
+  - npm install -g karma-cli
+  - bower install
+  - mysql -e "create database IF NOT EXISTS openboard_tests;" -uroot
+services:
+  - mysql

@@ -10,6 +10,8 @@ Uses Windows Challenge/Response ([NTLM](https://en.wikipedia.org/wiki/NT_LAN_Man
 , [LESS](http://lesscss.org/)
 , [Grunt](http://gruntjs.com/)
 
+Openboard is being designed to use the same format as Geckoboard, so users can easily transfer to and from.
+
 ## Installation
 
 ```

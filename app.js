@@ -10,7 +10,6 @@ var path = require('path');
 var ntlm = require('express-ntlm');
 var db = require('./models');
 
-
 var app = express();
 
 // all environments
@@ -23,23 +22,23 @@ app.use(methodOverride());
 app.use(express.static(path.join(__dirname, process.env.NODE_ENV === 'development' ? 'public' : 'public/_dist')));
 
 // development only
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'production') {
+  app.use(ntlm({domain: process.env.LDAP_DOMAIN, domaincontroller: process.env.LDAP_CONTROLLLER}));
+} else {
   app.use(errorHandler());
   app.use(function (req, res, next) {
     req.ntlm = {
       "DomainName": "national",
-      "UserName": process.env.DEV_USERNAME || "testUser",
+      "UserName": process.env.DEV_USERNAME || "testuser",
       "Workstation": "stunjelly"
     };
     next();
   });
-} else {
-  app.use(ntlm({domain: process.env.LDAP_DOMAIN, domaincontroller: process.env.LDAP_CONTROLLLER}));
 }
 
 require('./routes')(app);
 
-db.sequelize.sync().complete(function (err) {
+db.sequelize.sync({logging: false}).complete(function (err) {
   if (err) {
     throw err
   } else {
@@ -52,3 +51,5 @@ db.sequelize.sync().complete(function (err) {
     });
   }
 });
+
+module.exports = app;
