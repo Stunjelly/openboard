@@ -152,33 +152,53 @@ describe('API', function () {
       });
     });
 
-
-    it('POST /api/dashboards/:dashboardId should update a SINGLE dashboard', function (done) {
-      var dashboardTitle = 'Dashboard 1 Updated';
-      chai.request(server)
-        .post('/api/dashboards/1')
-        .send({
-          title: dashboardTitle,
-          theme: 'default',
-          columns: 6,
-          customStyle: 'body{background-color:yellow"}'
-        })
-        .end(function (err, res) {
-          res.should.have.status(200);
-          res.body.should.be.a('object');
-          res.body.should.have.property('title').be.a('string').equal(dashboardTitle);
-          testDashboard = res.body;
-          done();
-        });
+    describe('POST /api/dashboards/:id', function () {
+      it('should update a SINGLE dashboard', function (done) {
+        var dashboardTitle = 'Dashboard 1 Updated';
+        chai.request(server)
+          .post('/api/dashboards/1')
+          .send({
+            title: dashboardTitle,
+            theme: 'default',
+            columns: 6,
+            customStyle: 'body{background-color:yellow"}'
+          })
+          .end(function (err, res) {
+            res.should.have.status(200);
+            res.body.should.be.a('object');
+            res.body.should.have.property('title').be.a('string').equal(dashboardTitle);
+            testDashboard = res.body;
+            done();
+          });
+      });
     });
 
-    it('DELETE /api/dashboards/:dashboardId should delete a SINGLE dashboard', function (done) {
-      chai.request(server)
-        .delete('/api/dashboards/1')
-        .end(function (err, res) {
-          res.should.have.status(204);
-          done();
-        });
+    describe('DELETE /api/dashboards/:dashboardId', function () {
+      it('should return 304 and delete a SINGLE dashboard', function (done) {
+        chai.request(server)
+          .delete('/api/dashboards/1')
+          .end(function (err, res) {
+            res.should.have.status(204);
+            // TODO: test to see if it's removing the dashboard from the DB table
+            done();
+          });
+      });
+      it('should return 403 if trying to delete someone else\s dashboard', function (done) {
+        chai.request(server)
+          .delete('/api/dashboards/3')
+          .end(function (err, res) {
+            res.should.have.status(403);
+            done();
+          });
+      });
+      it('should return 404 if trying to delete unknown dashboard', function (done) {
+        chai.request(server)
+          .delete('/api/dashboards/999')
+          .end(function (err, res) {
+            res.should.have.status(404);
+            done();
+          });
+      });
     });
 
   });
