@@ -1,5 +1,7 @@
 # Openboard
 
+[![Build Status](https://img.shields.io/travis/Stunjelly/openboard/master.svg)](https://travis-ci.org/Stunjelly/openboard)
+
 Real time [KPI](https://en.wikipedia.org/wiki/Performance_indicator) dashboards designed as a free Geckoboard alternative for Microsoft networks. 
 Uses Windows Challenge/Response ([NTLM](https://en.wikipedia.org/wiki/NT_LAN_Manager)) for authentication and a MySQL database.
 
