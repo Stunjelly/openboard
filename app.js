@@ -18,7 +18,9 @@ var app = express();
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
-app.use(morgan('dev'));
+if (process.env.NODE_ENV !== 'test') {
+  app.use(morgan(process.env.NODE_ENV === 'production' ? null : 'dev'));
+}
 app.use(bodyParser());
 app.use(methodOverride());
 app.use(express.static(path.join(__dirname, process.env.NODE_ENV === 'development' ? 'public' : 'public/_dist')));
@@ -31,7 +33,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(function (req, res, next) {
     req.ntlm = {
       "DomainName": "national",
-      "UserName": process.env.DEV_USERNAME || "testuser",
+      "UserName": "testuser",
       "Workstation": "stunjelly"
     };
     next();

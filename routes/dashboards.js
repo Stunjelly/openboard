@@ -1,4 +1,5 @@
 var db = require('../models');
+var _ = require('lodash');
 var async = require('async');
 
 exports.findAll = function (req, res) {
@@ -9,17 +10,17 @@ exports.findAll = function (req, res) {
     ]
   }).then(function (entities) {
     res.json(entities)
+  }, function (err) {
+    res.send(500)
   })
 };
 
 exports.find = function (req, res) {
-  db.Dashboard.find({
-    where: {
-      id: req.param('dashboardId'),
-      userId: req.ntlm.UserName
-    }
-  }).then(function (entity) {
+  db.Dashboard.findOne(req.param('dashboardId')).then(function (entity) {
     if (entity) {
+      if (entity.userId !== req.ntlm.UserName) {
+        return res.send(403)
+      }
       res.json(entity)
     } else {
       res.send(404)
@@ -41,24 +42,22 @@ exports.create = function (req, res) {
 };
 
 exports.update = function (req, res) {
-  db.Dashboard.find({
+  var query = {
     where: {
       id: req.param('dashboardId'),
       userId: req.ntlm.UserName
     }
-  }).then(function (entity) {
+  };
+  db.Dashboard.find(query).then(function (entity) {
     if (entity) {
-      entity.updateAttributes({
-        title: req.body.title,
-        'public': req.body.public,
-        theme: req.body.theme
-      }).then(function (entity) {
+      var update = _.pick(req.body, ['title', 'public', 'theme', 'customStyle', 'columns']);
+      entity.updateAttributes(update).then(function (entity) {
         res.json(entity)
       })
     } else {
       res.send(404)
     }
-  })
+  });
 };
 
 exports.destroy = function (req, res) {

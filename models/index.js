@@ -19,7 +19,7 @@ var Dashboard = sequelize.define('dashboard', {
   userId: {type: Sequelize.STRING, allowNull: false, len: [0, 40]},
   title: {type: Sequelize.STRING, allowNull: false, len: [0, 40]},
   'public': {type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false},
-  theme: {type: Sequelize.STRING, allowNull: true, len: [3, 36]},
+  theme: {type: Sequelize.STRING, allowNull: true, len: [3, 36], defaultValue: 'dark'},
   customStyle: {type: Sequelize.TEXT, allowNull: true},
   columns: {type: Sequelize.INTEGER, allowNull: false, defaultValue: 3, len: [3, 6]}
 });
@@ -35,7 +35,7 @@ var Widget = sequelize.define('widget', {
   x: {type: Sequelize.INTEGER, allowNull: false, min: 0, max: 6, defaultValue: 0},
   y: {type: Sequelize.INTEGER, allowNull: false, min: 0, max: 6, defaultValue: 0},
   method: {type: Sequelize.ENUM('push', 'polling'), allowNull: false},
-  interval: {type: Sequelize.INTEGER, allowNull: false, min: 30, max: 7200, defaultValue: 300},
+  interval: {type: Sequelize.INTEGER, allowNull: true, min: 30, max: 7200, defaultValue: 300},
   url: {type: Sequelize.STRING, allowNull: true},
   urlKey: {type: Sequelize.STRING, allowNull: true, len: [0, 36]},
   cache: JsonField(sequelize, 'widget', 'cache'),
