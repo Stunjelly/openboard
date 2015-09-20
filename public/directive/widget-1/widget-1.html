@@ -1,0 +1,5 @@
+<div>
+  <h1><small ng-if="widget.cache.item[0].prefix">{{widget.cache.item[0].prefix}}</small>{{widget.cache.item[0].value | number}}</h1>
+  <p class="lead" ng-if="widget.cache.item[0].text">{{widget.cache.item[0].text}}</p>
+  <sparkline ng-if="drawSparkline"></sparkline>
+</div>
