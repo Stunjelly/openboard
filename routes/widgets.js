@@ -19,7 +19,7 @@ exports.findAll = function (req, res) {
 exports.find = function (req, res) {
   db.Dashboard.findById(req.param('dashboardId'), {attributes: ['id', 'userId']}).then(function (dashboard) {
     if (!dashboard) return res.send(404);
-    if (dashboard.userId !== req.ntlm.UserName) return res.send(403);
+    if (dashboard.public !== true && dashboard.userId !== req.ntlm.UserName) return res.send(403);
     db.Widget.find({where: {id: req.param('widgetId'), dashboardId: dashboard.id}}).then(function (entity) {
       return !entity ? res.json(entity) : res.send(404);
     }, function (err) {
