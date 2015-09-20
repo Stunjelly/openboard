@@ -154,14 +154,14 @@ angular.module('openboard').controller('EditWidgetCtrl', function ($scope, resol
       if (resolvedWidget) {
         resolvedWidget = $scope.widgetModel;
         resolvedWidget.$save(function (res) {
-          toastr.success('Widget Saved!', 'Success');
-          $modalInstance.close();
+          toastr.success('Widget Saved');
+          $modalInstance.close(res);
         });
       } else {
         var newWidget = new Widget($scope.widgetModel);
         newWidget.$save(function (res) {
-          toastr.success('Widget Created!', 'Success');
-          $modalInstance.close();
+          toastr.success('Widget Created');
+          $modalInstance.close(res);
         });
       }
     }
