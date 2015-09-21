@@ -1,17 +1,21 @@
 language: node_js
+sudo: false
 node_js:
   - 0.12
 branches:
   only:
-    - master
+    - develop
 env:
   - NODE_ENV=test
 before_script:
-  - npm install -g bower
   - npm install -g mocha
-  - npm install -g karma
-  - npm install -g karma-cli
-  - bower install
-  - mysql -e "create database IF NOT EXISTS openboard_tests;" -uroot
+#  - npm install -g bower
+#  - npm install -g karma
+#  - npm install -g karma-cli
+#  - bower install
+  - mysql -e "SET FOREIGN_KEY_CHECKS = 0; DROP DATABASE IF EXISTS openboard_tests; create database openboard_tests;" -uroot
 services:
   - mysql
+notifications:
+  slack:
+    secure: T4M8nufeWT2FXrBNzIOPJXw47cNiMfnTHiZRKCxxi8EfCBHHwVCMPnJsp+q09qgT1EKgna14//47ajGXdxpkI08BY7Fnq3oe8JMyALLlalDrBKAX/amEAJArZzDKTxHGpncOCLVZOK5o02H2D7T/IFJbUDPBDsoyCAmAB8qg9MPmXkG8RVobjUfjUFXu+9DDLHQ3599kpKHiM0XzNUgf7bgEwTqbFdHLKyyfi8FFxsJbH5b47NPWj8jQb21qBrhiObwBlHvjmRGVsUDF3Hnu1ODbH8vyarA70TG/1/Sz1lRQKsDzVEc7UmGc2BdCO9SKOr3VouW5mmUFlMemnnHad3sXlpJfArRxxvFHesrBFnlSThlVO40uY/iKglNq1YDGdsPX4KLzhw/zMbCtiqSbtV4ljr6/WKlxlqtktGlrNXmN1csysYg3csbfLzEryf8PHSoET6C03WyM8fkh1Cc9SjAqpvEH6C+vbB8JMA9D8cFHZBRkZMpUbG915sQxtrgE9fW5o+J3CaSTYt4AoINJaAuBpwd9pNLH+hwB62Hk+49QKm7nznYJFidaaLvd3E3HnsNAtnCbqZppkAw7E82TZOoOBwWfYLXYh0kJLLCKVW8zEgzV8Udkw+bBBN088aQTI41Ro02T9vycXKMk+HASUFsJleI6rRqc5tl8qDkPShI=

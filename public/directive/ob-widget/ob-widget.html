@@ -1,11 +1,10 @@
 <li class="widget">
-  <div class="inner">
+  <div class="inner widget-w{{widget.w}} widget-h{{widget.h}}">
     <div class="title">
       {{widget.title}}
     </div>
     <div class="body">
-      <h1>{{widget.cache.item[0].value | number}}</h1>
-      <sparkline data="widget.cache.item[1]"></sparkline>
+      <div class="widget-directive-holder"></div>
     </div>
     <div class="footer">
       <ul class="list-inline widget-buttons">
@@ -13,7 +12,7 @@
           <a href="" ng-click="editWidget(widget)">Edit</a>
         </li>
         <li>
-          <a href="" ng-click="editWidget(widget)">Delete</a>
+          <a href="" ng-click="deleteWidget(widget)">Delete</a>
         </li>
       </ul>
     </div>

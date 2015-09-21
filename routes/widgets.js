@@ -1,76 +1,78 @@
 var db = require('../models');
 var crypto = require('crypto');
+var _ = require('lodash');
+
+var allowedKeys = ['title', 'w', 'h', 'x', 'y', 'method', 'reload', 'url', 'urlKey', 'config', 'typeId'];
 
 exports.findAll = function (req, res) {
-  db.Widget.findAll({where: {dashboardId: req.param('dashboardId')}}).then(function (entities) {
-    res.json(entities)
-  }, function (err) {
-    res.send(400, err);
-  })
+  db.Dashboard.findById(req.param('dashboardId'), {attributes: ['id', 'userId']}).then(function (dashboard) {
+    if (!dashboard) return res.send(404);
+    if (dashboard.userId !== req.ntlm.UserName) return res.send(403);
+    db.Widget.findAll({where: {dashboardId: dashboard.id}}).then(function (entities) {
+      return res.json(entities)
+    }, function (err) {
+      return res.send(400, err);
+    });
+  });
 };
 
 exports.find = function (req, res) {
-  db.Widget.find({
-    where: {
-      id: req.param('widgetId'),
-      dashboardId: req.param('dashboardId')
-    }
-  }).then(function (entity) {
-    if (entity) {
-      res.json(entity)
-    } else {
-      res.send(404)
-    }
-  }, function (err) {
-    res.send(400, err);
-  })
+  db.Dashboard.findById(req.param('dashboardId'), {attributes: ['id', 'userId']}).then(function (dashboard) {
+    if (!dashboard) return res.send(404);
+    if (dashboard.public !== true && dashboard.userId !== req.ntlm.UserName) return res.send(403);
+    db.Widget.find({where: {id: req.param('widgetId'), dashboardId: dashboard.id}}).then(function (entity) {
+      return !entity ? res.json(entity) : res.send(404);
+    }, function (err) {
+      return res.send(400, err);
+    })
+  });
 };
 
 exports.create = function (req, res) {
-  db.Widget.create(req.body).then(function (entity) {
-    res.statusCode = 201;
-    res.json(entity)
-  }, function (err) {
-    res.send(400, err);
-  })
+  db.Dashboard.findById(req.param('dashboardId'), {attributes: ['id', 'userId']}).then(function (dashboard) {
+    if (!dashboard) return res.send(404);
+    if (dashboard.userId !== req.ntlm.UserName) return res.send(403);
+    var createBody = _.pick(req.body, allowedKeys);
+    createBody.dashboardId = parseInt(dashboard.id);
+    db.Widget.create(createBody).then(function (entity) {
+      res.statusCode = 201;
+      return res.json(entity);
+    }, function (err) {
+      return res.send(400, err);
+    });
+  });
 };
 
 exports.update = function (req, res) {
-  db.Widget.find({
-    where: {
-      id: req.param('widgetId'),
-      dashboardId: req.param('dashboardId')
-    }
-  }).then(function (entity) {
-    if (entity) {
-      entity.updateAttributes(req.body).then(function (entity) {
-        res.json(entity)
-      })
-    } else {
-      res.send(404)
-    }
-  }, function (err) {
-    res.send(400, err);
-  })
+  db.Dashboard.findById(req.param('dashboardId'), {attributes: ['id', 'userId']}).then(function (dashboard) {
+    if (!dashboard) return res.send(404);
+    if (dashboard.userId !== req.ntlm.UserName) return res.send(403);
+    db.Widget.find({where: {id: req.param('widgetId'), dashboardId: dashboard.id}}).then(function (entity) {
+      if (!entity) return res.send(404);
+      var update = _.pick(req.body, allowedKeys);
+      update.dashboardId = req.param('dashboardId');
+      entity.updateAttributes(update).then(function (entity) {
+        return res.json(entity);
+      }, function (err) {
+        return res.send(400, err);
+      });
+    });
+  });
 };
 
 exports.destroy = function (req, res) {
-  db.Widget.find({
-    where: {
-      id: req.param('widgetId'),
-      dashboardId: req.param('dashboardId')
-    }
-  }).then(function (entity) {
-    if (entity) {
+  db.Dashboard.findById(req.param('dashboardId'), {attributes: ['id', 'userId']}).then(function (dashboard) {
+    if (!dashboard) return res.send(404);
+    if (dashboard.userId !== req.ntlm.UserName) return res.send(403);
+    db.Widget.find({where: {id: req.param('widgetId'), dashboardId: dashboard.id}}).then(function (entity) {
+      if (!entity) return res.send(404);
       entity.destroy().then(function () {
-        res.send(204)
-      })
-    } else {
-      res.send(404)
-    }
-  }, function (err) {
-    res.send(400, err);
-  })
+        return res.send(204);
+      }, function (err) {
+        return res.send(400, err);
+      });
+    });
+  });
 };
 
 exports.updateClient = function (req, res) {

@@ -3,6 +3,7 @@ var JsonField = require('sequelize-json');
 var sequelize = new Sequelize(process.env.MYSQL_DB, process.env.MYSQL_USER, process.env.MYSQL_PASS, {
   host: process.env.MYSQL_HOST,
   dialect: 'mysql',
+  logging: process.env.NODE_ENV === 'development' ? console.warn : false,
   pool: {
     max: 5,
     min: 0,
@@ -18,7 +19,7 @@ var Dashboard = sequelize.define('dashboard', {
   userId: {type: Sequelize.STRING, allowNull: false, len: [0, 40]},
   title: {type: Sequelize.STRING, allowNull: false, len: [0, 40]},
   'public': {type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false},
-  theme: {type: Sequelize.STRING, allowNull: true, len: [3, 36]},
+  theme: {type: Sequelize.STRING, allowNull: true, len: [3, 36], defaultValue: 'dark'},
   customStyle: {type: Sequelize.TEXT, allowNull: true},
   columns: {type: Sequelize.INTEGER, allowNull: false, defaultValue: 3, len: [3, 6]}
 });
@@ -34,9 +35,10 @@ var Widget = sequelize.define('widget', {
   x: {type: Sequelize.INTEGER, allowNull: false, min: 0, max: 6, defaultValue: 0},
   y: {type: Sequelize.INTEGER, allowNull: false, min: 0, max: 6, defaultValue: 0},
   method: {type: Sequelize.ENUM('push', 'polling'), allowNull: false},
-  interval: {type: Sequelize.INTEGER, allowNull: false, min: 30, max: 7200, defaultValue: 300},
+  reload: {type: Sequelize.INTEGER, allowNull: true, min: 30, max: 7200, defaultValue: 300},
   url: {type: Sequelize.STRING, allowNull: true},
   urlKey: {type: Sequelize.STRING, allowNull: true, len: [0, 36]},
+  apiKey: {type: Sequelize.UUID, defaultValue: Sequelize.UUIDV4},
   cache: JsonField(sequelize, 'widget', 'cache'),
   config: JsonField(sequelize, 'widget', 'config')
 });
@@ -48,19 +50,22 @@ var Widget = sequelize.define('widget', {
  */
 var Type = sequelize.define('type', {
   title: {type: Sequelize.STRING, allowNull: false, len: [0, 100]},
-  schema: JsonField(sequelize, 'type', 'schema'),
+  fields: JsonField(sequelize, 'type', 'fields'),
   form: JsonField(sequelize, 'type', 'form'),
   model: JsonField(sequelize, 'type', 'model')
 });
 
+/**
+ * Setup Relationships
+ */
 Widget.belongsTo(Dashboard);
 Widget.belongsTo(Type);
 
 /**
- * Here we create our default Widget Types, these should
+ * Here we create our default Widget Types, these should move to ./widgets dir as they will pack out quite a bit
  */
 Type.bulkCreate([
-  {id: 1, title: "Number and Secondary Stat", schema: {}, form: {}, model: {}},
+  {id: 1, title: "Number and Secondary Stat", schema: {}, form: {}, model: {"goal": 0}},
   {id: 2, title: "Line Chart", schema: {}, form: {}, model: {}},
   {id: 3, title: "Bar/Column Chart", schema: {}, form: {}, model: {}},
   {id: 4, title: "Geck-o-Meter", schema: {}, form: {}, model: {}},

@@ -1,8 +1,4 @@
-if (process.env.NODE_ENV !== 'test') {
-  require('dotenv').load();
-}
 var express = require('express');
-var io = require('socket.io');
 var bodyParser = require('body-parser');
 var errorHandler = require('errorhandler');
 var methodOverride = require('method-override');
@@ -18,7 +14,9 @@ var app = express();
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
-app.use(morgan('dev'));
+if (process.env.NODE_ENV !== 'test') {
+  app.use(morgan(process.env.NODE_ENV === 'production' ? null : 'dev'));
+}
 app.use(bodyParser());
 app.use(methodOverride());
 app.use(express.static(path.join(__dirname, process.env.NODE_ENV === 'development' ? 'public' : 'public/_dist')));
@@ -31,7 +29,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(function (req, res, next) {
     req.ntlm = {
       "DomainName": "national",
-      "UserName": process.env.DEV_USERNAME || "testuser",
+      "UserName": "testuser",
       "Workstation": "stunjelly"
     };
     next();
@@ -40,18 +38,12 @@ if (process.env.NODE_ENV === 'production') {
 
 require('./routes')(app);
 
-db.sequelize.sync({logging: false}).complete(function (err) {
-  if (err) {
-    throw err
-  } else {
-    var server = http.createServer(app).listen(app.get('port'), function () {
-      console.log('Express server listening on port ' + app.get('port'))
-    });
-    io = io.listen(server);
-    io.on('connection', function (socket) {
-
-    });
-  }
+var server = http.createServer(app).listen(app.get('port'), function () {
+  console.log('Openboard listening on port ' + app.get('port'));
 });
+
+// Sockets
+io = require('socket.io').listen(server);
+require('./sockets.js')(io);
 
 module.exports = app;

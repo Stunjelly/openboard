@@ -1,7 +1,7 @@
 {
   "name": "openboard",
   "version": "0.0.0",
-  "description": "Description for openboard",
+  "description": "",
   "author": "Edward Knowles <mail@eknowles.com>",
   "private": true,
   "repository": {
@@ -9,8 +9,8 @@
     "type": "git"
   },
   "scripts": {
-    "start": "node app.js",
-    "test": "NODE_ENV=test mocha --recursive"
+    "start": "node start.js",
+    "test": "NODE_ENV=test mocha -R spec --recursive"
   },
   "jscsConfig": {
     "preset": "airbnb"
@@ -26,7 +26,8 @@
     "method-override": "~1.0.0",
     "morgan": "~1.0.0",
     "mysql": "^2.9.0",
-    "sequelize": "~2.0.0-beta.2",
+    "sequelize": "^3.9.0",
+    "sequelize-cli": "^1.9.1",
     "sequelize-json": "^0.1.1",
     "socket.io": "^1.3.6"
   },

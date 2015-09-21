@@ -1,10 +1,20 @@
-angular.module('openboard').directive('obWidget', function ($modal) {
+angular.module('openboard').directive('obWidget', function ($modal, $compile, $interval) {
   return {
     restrict: 'EA',
     replace: true,
-    scope: true,
     templateUrl: 'directive/ob-widget/ob-widget.html',
     link: function (scope, element, attrs, fn) {
+
+      var widgetHolder = element.find('.widget-directive-holder');
+      widgetHolder.attr('widget-' + scope.widget.typeId, '');
+      $compile(widgetHolder)(scope);
+
+      //$interval(function () {
+      //  var n = Math.floor(Math.random() * 300) + 100;
+      //  scope.widget.cache.item[0].value += n;
+      //  scope.widget.cache.item[1].push(n);
+      //  scope.widget.cache.item[1].splice(0, 1);
+      //}, scope.widget.reload);
 
       // Setup init position
       element[0].style.transform = 'translate(' + scope.widget.x + 'px, ' + scope.widget.y + 'px)';

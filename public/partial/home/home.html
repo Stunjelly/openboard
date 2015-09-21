@@ -23,6 +23,11 @@
             </section>
             <section class="public-dashboards">
               <p><strong>Public Dashboards</strong></p>
+              <ul class="list-unstyled">
+                <li ng-repeat="dashboard in publicDashboards track by dashboard.id">
+                  <a ui-sref="dashboard({dashboardId:dashboard.id})">{{dashboard.title}}</a>
+                </li>
+              </ul>
               <p ng-if="!publicDashboards.length" class="text-muted">We couldn't find any public dashboards.</p>
             </section>
           </div>

@@ -1,8 +1,8 @@
-# Openboard
+![openboard](https://github.com/stunjelly/openboard/blob/develop/docs/img/readme-header.jpg)
 
-[![Build Status](https://img.shields.io/travis/Stunjelly/openboard/master.svg)](https://travis-ci.org/Stunjelly/openboard)
+[![Build Status](https://img.shields.io/travis/Stunjelly/openboard/develop.svg)](https://travis-ci.org/Stunjelly/openboard)
 
-Real time [KPI](https://en.wikipedia.org/wiki/Performance_indicator) dashboards designed as a free Geckoboard alternative for Microsoft networks. 
+Real time [KPI](https://en.wikipedia.org/wiki/Performance_indicator) dashboards designed as a [Geckoboard](https://www.geckoboard.com/) alternative for Microsoft networks. 
 Uses Windows Challenge/Response ([NTLM](https://en.wikipedia.org/wiki/NT_LAN_Manager)) for authentication and a MySQL database.
 
 [Node.js](https://nodejs.org/en/)
@@ -12,7 +12,8 @@ Uses Windows Challenge/Response ([NTLM](https://en.wikipedia.org/wiki/NT_LAN_Man
 , [LESS](http://lesscss.org/)
 , [Grunt](http://gruntjs.com/)
 
-Openboard is being designed to use the same format as Geckoboard, so users can easily transfer to and from.
+Openboard is being designed to use the same format as Geckoboard,
+so users can develop their own APIs for custom widgets on Openboard and seamlessly upgrade if they wish.
 
 ## Installation
 
@@ -24,6 +25,10 @@ npm start
 ```
 
 Open [http://localhost:3000](http://localhost:3000)
+
+## Testing
+
+[Mocha](https://mochajs.org/) test 
 
 ## Client
 

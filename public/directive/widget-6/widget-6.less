@@ -1,0 +1,28 @@
+.text-widget {
+  ul.text {
+    padding: 0;
+    margin: 0;
+    li {
+      font-size: 2em;
+      display: none;
+      &.active {
+        display: block;
+      }
+    }
+  }
+  ul.bullets {
+    padding: 0;
+    margin: 0;
+    li {
+      width: 12px;
+      height: 12px;
+      border: 2px solid @text-muted;
+      list-style-type: none;
+      display: inline-block;
+      margin-right: 5px;
+      &.active {
+        background-color: @text-muted;
+      }
+    }
+  }
+}

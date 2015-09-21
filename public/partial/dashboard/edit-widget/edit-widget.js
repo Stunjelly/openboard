@@ -25,7 +25,7 @@ angular.module('openboard').controller('EditWidgetCtrl', function ($scope, resol
         required: true,
         'enum': ['push', 'polling']
       },
-      interval: {
+      reload: {
         type: "number",
         title: "Interval",
         description: "How often do you want the data to refresh.",
@@ -104,7 +104,7 @@ angular.module('openboard').controller('EditWidgetCtrl', function ($scope, resol
               condition: "widgetModel.method === 'polling'"
             },
             {
-              key: "interval",
+              key: "reload",
               type: "select",
               condition: "widgetModel.method === 'polling'",
               titleMap: [
@@ -141,8 +141,8 @@ angular.module('openboard').controller('EditWidgetCtrl', function ($scope, resol
 
   var defaultWidgetData = {
     method: 'polling',
-    interval: 300,
-    dashboardId: $stateParams.dashboardId,
+    reload: 300,
+    dashboardId: parseInt($stateParams.dashboardId),
     typeId: 1
   };
 
@@ -154,14 +154,14 @@ angular.module('openboard').controller('EditWidgetCtrl', function ($scope, resol
       if (resolvedWidget) {
         resolvedWidget = $scope.widgetModel;
         resolvedWidget.$save(function (res) {
-          toastr.success('Widget Saved!', 'Success');
-          $modalInstance.close();
+          toastr.success('Widget Saved');
+          $modalInstance.close(res);
         });
       } else {
         var newWidget = new Widget($scope.widgetModel);
         newWidget.$save(function (res) {
-          toastr.success('Widget Created!', 'Success');
-          $modalInstance.close();
+          toastr.success('Widget Created');
+          $modalInstance.close(res);
         });
       }
     }

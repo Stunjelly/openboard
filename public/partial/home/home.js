@@ -2,6 +2,8 @@ angular.module('openboard').controller('HomeCtrl', function ($scope, Dashboard, 
 
   $scope.dashboards = Dashboard.query();
 
+  $scope.publicDashboards = Dashboard.query({'public': 1});
+
   $scope.schema = {
     type: "object",
     properties: {
@@ -36,6 +38,8 @@ angular.module('openboard').controller('HomeCtrl', function ($scope, Dashboard, 
       dash.$save(function (res) {
         toastr.success('Dashboard Created!', res.title);
         $state.go('dashboard', {dashboardId: res.id});
+      }, function (err) {
+        toastr.warning(err.data.message, err.data.name);
       });
     }
   }
