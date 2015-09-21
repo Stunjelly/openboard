@@ -1,3 +1,6 @@
+/**
+ * Number and Secondary Stat
+ */
 angular.module('openboard').directive('widget1', function () {
   return {
     restrict: 'A',

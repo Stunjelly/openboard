@@ -142,7 +142,7 @@ angular.module('openboard').controller('EditWidgetCtrl', function ($scope, resol
   var defaultWidgetData = {
     method: 'polling',
     reload: 300,
-    dashboardId: $stateParams.dashboardId,
+    dashboardId: parseInt($stateParams.dashboardId),
     typeId: 1
   };
 

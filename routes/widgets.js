@@ -2,7 +2,7 @@ var db = require('../models');
 var crypto = require('crypto');
 var _ = require('lodash');
 
-var allowedKeys = ['title', 'w', 'h', 'x', 'y', 'method', 'reload', 'url', 'urlKey', 'config'];
+var allowedKeys = ['title', 'w', 'h', 'x', 'y', 'method', 'reload', 'url', 'urlKey', 'config', 'typeId'];
 
 exports.findAll = function (req, res) {
   db.Dashboard.findById(req.param('dashboardId'), {attributes: ['id', 'userId']}).then(function (dashboard) {
