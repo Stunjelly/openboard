@@ -13,7 +13,7 @@ before_script:
   - npm install -g karma
   - npm install -g karma-cli
   - bower install
-  - mysql -e "create database IF NOT EXISTS openboard_tests;" -uroot
+  - mysql -e "SET FOREIGN_KEY_CHECKS = 0; DROP DATABASE IF EXISTS openboard_tests; create database openboard_tests;" -uroot
 services:
   - mysql
 notifications:
