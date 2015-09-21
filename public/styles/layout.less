@@ -1,16 +1,23 @@
 @widgetW: 250px;
 @widgetH: 250px;
+.widget .inner {
+  overflow: hidden;
+}
 .widget-w1 {
   width: @widgetW;
+  max-width: @widgetW;
 }
 .widget-w2 {
   width: (@widgetW * 2) + 10;
+  max-width: (@widgetW * 2) + 10;
 }
 .widget-h1 {
   height: @widgetH;
+  max-height: @widgetH;
 }
 .widget-h2 {
   height: (@widgetH * 2) + 10;
+  max-height: (@widgetH * 2) + 10;
 }
 .ui-view-container {
   //position : relative;

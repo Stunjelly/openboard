@@ -14,7 +14,7 @@ angular.module('openboard').directive('widget6', function($interval) {
         } else {
           scope.widgetCurrentIndex += 1;
         }
-      }, scope.widget.config.delayTime || 5000);
+      }, 5000);
 		}
 	};
 });
