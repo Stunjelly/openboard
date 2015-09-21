@@ -38,6 +38,7 @@ var Widget = sequelize.define('widget', {
   reload: {type: Sequelize.INTEGER, allowNull: true, min: 30, max: 7200, defaultValue: 300},
   url: {type: Sequelize.STRING, allowNull: true},
   urlKey: {type: Sequelize.STRING, allowNull: true, len: [0, 36]},
+  apiKey: {type: Sequelize.UUID, defaultValue: Sequelize.UUIDV4},
   cache: JsonField(sequelize, 'widget', 'cache'),
   config: JsonField(sequelize, 'widget', 'config')
 });
@@ -64,7 +65,7 @@ Widget.belongsTo(Type);
  * Here we create our default Widget Types, these should move to ./widgets dir as they will pack out quite a bit
  */
 Type.bulkCreate([
-  {id: 1, title: "Number and Secondary Stat", schema: {}, form: {}, model: {}},
+  {id: 1, title: "Number and Secondary Stat", schema: {}, form: {}, model: {"goal": 0}},
   {id: 2, title: "Line Chart", schema: {}, form: {}, model: {}},
   {id: 3, title: "Bar/Column Chart", schema: {}, form: {}, model: {}},
   {id: 4, title: "Geck-o-Meter", schema: {}, form: {}, model: {}},
