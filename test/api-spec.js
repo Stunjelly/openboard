@@ -255,6 +255,8 @@ describe('API', function () {
           .post('/api/dashboards/1/widgets')
           .send(newWidget)
           .end(function (err, res) {
+            console.log(res.body); // fs travis...
+            console.log(res);
             res.should.have.status(201);
             res.body.should.be.a('object');
             res.body.should.not.have.property('cache');
