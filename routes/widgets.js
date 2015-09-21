@@ -33,7 +33,7 @@ exports.create = function (req, res) {
     if (!dashboard) return res.send(404);
     if (dashboard.userId !== req.ntlm.UserName) return res.send(403);
     var createBody = _.pick(req.body, allowedKeys);
-    createBody.dashboardId = dashboard.id;
+    createBody.dashboardId = parseInt(dashboard.id);
     db.Widget.create(createBody).then(function (entity) {
       res.statusCode = 201;
       return res.json(entity);

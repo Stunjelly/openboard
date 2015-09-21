@@ -22,11 +22,9 @@ exports.find = function (req, res) {
 };
 
 exports.create = function (req, res) {
-  db.Dashboard.create({
-    userId: req.ntlm.UserName,
-    title: req.body.title,
-    'public': req.body.public === 'true' ? 1 : 0
-  }).then(function (entity) {
+  var createBody = _.pick(req.body, allowedKeys);
+  createBody.userId = req.ntlm.UserName;
+  db.Dashboard.create(createBody).then(function (entity) {
     res.statusCode = 201;
     res.json(entity)
   }, function (err) {

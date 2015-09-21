@@ -12,7 +12,7 @@ var tables = {
     {userId: 'testuser', title: 'Dashboard 1'},
     {userId: 'testuser', title: 'Dashboard 2'},
     {userId: 'not_testuser', title: 'Dashboard 3'},
-    {userId: 'not_testuser', title: 'Dashboard 4', public: true}
+    {userId: 'not_testuser', title: 'Dashboard 4', 'public': true}
   ],
   widgets: [{
     dashboardId: 1, title: 'Widget 1', method: 'polling', url: 'http://example.com',
