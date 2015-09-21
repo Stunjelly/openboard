@@ -37,7 +37,10 @@ describe('API', function () {
 
   // Setup database default data
   beforeEach(function (done) {
-    db.sequelize.sync()
+    db.sequelize.query('SET FOREIGN_KEY_CHECKS = 0')
+      .then(function () {
+        return db.sequelize.sync({force: true})
+      })
       .then(function () {
         return db.Dashboard.bulkCreate(tables.dashboards);
       })
@@ -255,8 +258,7 @@ describe('API', function () {
           .post('/api/dashboards/1/widgets')
           .send(newWidget)
           .end(function (err, res) {
-            console.log(res.body); // fs travis...
-            console.log(res);
+            console.log(res.body);
             res.should.have.status(201);
             res.body.should.be.a('object');
             res.body.should.not.have.property('cache');
