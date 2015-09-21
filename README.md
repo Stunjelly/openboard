@@ -1,4 +1,4 @@
-# Openboard
+![openboard](https://github.com/stunjelly/openboard/blob/develop/docs/img/readme-header.jpg)
 
 [![Build Status](https://img.shields.io/travis/Stunjelly/openboard/develop.svg)](https://travis-ci.org/Stunjelly/openboard)
 
