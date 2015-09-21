@@ -1,23 +1,11 @@
 <div class="monitor-widget" ng-class="isUp ? 'monitor-up' : 'monitor-down'">
   <h1 ng-class="isUp ? 'ion-arrow-up-b' : 'ion-arrow-down-b'">{{widget.cache.status}}</h1>
-  <div ng-if="isUp">
-    <div ng-if="widget.cache.downTime">
-      <div><small class="text-muted">LAST DOWNTIME</small></div>
-      <p>{{widget.cache.downTime}}</p>
-    </div>
-    <div ng-if="widget.cache.responseTime">
-      <div><small class="text-muted">RESPONSE TIME</small></div>
-      <p>{{widget.cache.responseTime}}</p>
-    </div>
-  </div>
-  <div ng-if="!isUp">
-    <div>
-      <div><small class="text-muted">LAST DOWNTIME</small></div>
-      <p>NOW</p>
-    </div>
-    <div>
-      <div><small class="text-muted">RESPONSE TIME</small></div>
-      <p>N/A</p>
-    </div>
+  <div>
+    <div><small class="text-muted">LAST DOWNTIME</small></div>
+    <p ng-if="isUp">{{widget.cache.downTime || 'N/A'}}</p>
+    <p ng-if="!isUp">NOW</p>
+    <div><small class="text-muted">RESPONSE TIME</small></div>
+    <p ng-if="isUp">{{widget.cache.responseTime || 'N/A'}}</p>
+    <p ng-if="!isUp">N/A</p>
   </div>
 </div>

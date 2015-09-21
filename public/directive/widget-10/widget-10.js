@@ -1,3 +1,6 @@
+/**
+ * Monitoring Widget
+ */
 angular.module('openboard').directive('widget10', function() {
 	return {
 		restrict: 'A',

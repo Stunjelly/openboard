@@ -1,0 +1,10 @@
+<div class="text-widget">
+  <ul class="text">
+    <li class="lead" ng-repeat="item in widget.cache.item track by $index"
+        ng-class="{active : widgetCurrentIndex === $index}">{{item.text}}
+    </li>
+  </ul>
+  <ul class="bullets">
+    <li ng-repeat="item in widget.cache.item track by $index" ng-class="{active : widgetCurrentIndex === $index}"></li>
+  </ul>
+</div>
