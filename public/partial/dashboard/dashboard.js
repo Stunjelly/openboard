@@ -1,7 +1,12 @@
-angular.module('openboard').controller('DashboardCtrl', function ($scope, $stateParams, Dashboard, Widget, $modal, toastr) {
+angular.module('openboard').controller('DashboardCtrl', function ($scope, $stateParams, Dashboard, Widget, $modal, toastr, SocketService) {
 
   // Get dashboard
-  $scope.dashboard = Dashboard.get({dashboardId: $stateParams.dashboardId});
+  $scope.dashboard = Dashboard.get({dashboardId: $stateParams.dashboardId}, function (response) {
+    SocketService.emit('joined-dashboard', {dashboardId: $scope.dashboard.id, 'public': $scope.dashboard.public});
+    SocketService.on('dashboard-pop', function (data) {
+      console.log(data);
+    });
+  });
 
   // Get widgets[]
   $scope.widgets = Widget.query({dashboardId: $stateParams.dashboardId});

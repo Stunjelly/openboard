@@ -1,8 +1,8 @@
 module.exports = function (io) {
   io.sockets.on('connection', function (socket) {
-    socket.on('captain', function (data) {
+    socket.on('joined-dashboard', function (data) {
       console.log(data);
-      socket.emit('Hello');
+      socket.emit('dashboard-pop', {yo: 'bomb'});
     });
   });
 };

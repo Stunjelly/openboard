@@ -1,4 +1,4 @@
-angular.module('openboard').controller('EditWidgetCtrl', function ($scope, resolvedWidget, Widget, $stateParams, toastr, $modalInstance) {
+angular.module('openboard').controller('EditWidgetCtrl', function ($scope, resolvedWidget, Type, Widget, $stateParams, toastr, $modalInstance) {
 
   $scope.baseSchema = {
     type: "object",
@@ -165,7 +165,13 @@ angular.module('openboard').controller('EditWidgetCtrl', function ($scope, resol
         });
       }
     }
-  }
+  };
 
+  $scope.$watch('widgetModel.typeId', function (newVal, oldVal) {
+    console.log(newVal);
+    Type.get({typeId: newVal}, function (res) {
+      console.log(res);
+    });
+  });
 
 });
