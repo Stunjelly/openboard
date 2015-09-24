@@ -1,4 +1,4 @@
-angular.module('openboard').directive('obWidget', function ($modal, $compile, $interval) {
+angular.module('openboard').directive('obWidget', function ($modal, $compile, $interval, SocketService) {
   return {
     restrict: 'EA',
     replace: true,
@@ -9,12 +9,18 @@ angular.module('openboard').directive('obWidget', function ($modal, $compile, $i
       widgetHolder.attr('widget-' + scope.widget.typeId, '');
       $compile(widgetHolder)(scope);
 
-      //$interval(function () {
-      //  var n = Math.floor(Math.random() * 300) + 100;
-      //  scope.widget.cache.item[0].value += n;
-      //  scope.widget.cache.item[1].push(n);
-      //  scope.widget.cache.item[1].splice(0, 1);
-      //}, scope.widget.reload);
+      $interval(function () {
+        //var n = Math.floor(Math.random() * 300) + 100;
+        //scope.widget.cache.item[0].value += n;
+        //scope.widget.cache.item[1].push(n);
+        //scope.widget.cache.item[1].splice(0, 1);
+        SocketService.emit('request:cache', {widgetId: scope.widget.id});
+      }, scope.widget.reload * 1000);
+
+      SocketService.on('updateWidget:' + scope.widget.id, function (data) {
+        console.log(data);
+        scope.widget.cache = data.data;
+      });
 
       // Setup init position
       element[0].style.transform = 'translate(' + scope.widget.x + 'px, ' + scope.widget.y + 'px)';

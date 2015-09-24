@@ -44,6 +44,6 @@ var server = http.createServer(app).listen(app.get('port'), function () {
 
 // Sockets
 io = require('socket.io').listen(server);
-require('./sockets.js')(io);
+require('./sockets.js')(io, app);
 
 module.exports = app;
