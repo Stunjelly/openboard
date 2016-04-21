@@ -5,6 +5,10 @@
 Real time [KPI](https://en.wikipedia.org/wiki/Performance_indicator) dashboards designed as a [Geckoboard](https://www.geckoboard.com/) alternative for Microsoft networks. 
 Uses Windows Challenge/Response ([NTLM](https://en.wikipedia.org/wiki/NT_LAN_Manager)) for authentication and a MySQL database.
 
+### Open source and self-hosted!
+
+![openboard](https://github.com/stunjelly/openboard/blob/develop/docs/img/ss1.png)
+
 [Node.js](https://nodejs.org/en/)
 , MySQL ([Sequelize](http://docs.sequelizejs.com/en/latest/))
 , [AngularJS](https://angularjs.org/)
