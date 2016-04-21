@@ -9,11 +9,11 @@ module.exports = function (io, app) {
     socket.on('request:cache', function (data) {
       // get cache data for that person
       console.log('request:cache', data);
-      db.Widget.findById(data.widgetId).then(function (e) {
+      db.Widget.findById(data.widgetId, {attributes: ['id', 'typeId', 'cache']}).then(function (e) {
         if (e) {
-          if (e.typeId == 1) {
+          if (e.typeId === 1) {
             var x = e.cache;
-            //socket.emit('updateWidget:' + data.widgetId, {data: x});
+            socket.emit('updateWidget:' + data.widgetId, {data: x});
           }
         }
       });
