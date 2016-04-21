@@ -11,7 +11,7 @@ var path = require('path');
 //This enables users to create any directory structure they desire.
 var createFolderGlobs = function (fileTypePatterns) {
   fileTypePatterns = Array.isArray(fileTypePatterns) ? fileTypePatterns : [fileTypePatterns];
-  var ignore = ['node_modules', 'lib', '_dist', 'temp'];
+  var ignore = ['node_modules', 'lib', '_dist', 'temp', 'public/lib'];
   var fs = require('fs');
   return fs.readdirSync(path.join(process.cwd(), ''))
     .map(function (file) {
@@ -88,8 +88,13 @@ module.exports = function (grunt) {
           module: pkg.name,
           htmlmin: '<%= htmlmin.main.options %>'
         },
-        src: [createFolderGlobs('public/*.html'), '!public/index.html', '!public/_SpecRunner.html'],
-        dest: 'public/temp/templates.js'
+        cwd: 'public',
+        src: [
+          'directive/**/*.html',
+          'partial/**/*.html',
+          '!index.html',
+          '!_SpecRunner.html'],
+        dest: 'temp/templates.js'
       }
     },
     copy: {
@@ -162,6 +167,8 @@ module.exports = function (grunt) {
     },
     uglify: {
       main: {
+        compress: false,
+        
         src: 'public/temp/app.full.js',
         dest: 'public/_dist/app.full.min.js'
       }

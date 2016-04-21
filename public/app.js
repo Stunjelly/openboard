@@ -7,6 +7,7 @@ angular.module('openboard', [
   'ngResource',
   'schemaForm',
   'toastr',
+  'btford.socket-io'
 ]);
 
 angular.module('openboard').config(function ($stateProvider, $urlRouterProvider) {

@@ -15,6 +15,11 @@ Uses Windows Challenge/Response ([NTLM](https://en.wikipedia.org/wiki/NT_LAN_Man
 Openboard is being designed to use the same format as Geckoboard,
 so users can develop their own APIs for custom widgets on Openboard and seamlessly upgrade if they wish.
 
+## Themes
+
+![dark theme](https://github.com/stunjelly/openboard/blob/develop/docs/img/ss1.png)
+![default theme](https://github.com/stunjelly/openboard/blob/develop/docs/img/ss2.png)
+
 ## Installation
 
 ```

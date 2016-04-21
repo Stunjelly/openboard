@@ -15,7 +15,7 @@ angular.module('openboard').controller('EditDashboardCtrl', function ($scope, re
         title: "Theme",
         description: "",
         required: false,
-        'enum': ['default', 'dark']
+        'enum': ['default', 'dark', 'custom']
       },
       "public": {
         type: "boolean",
@@ -73,6 +73,7 @@ angular.module('openboard').controller('EditDashboardCtrl', function ($scope, re
     if (form.$valid) {
       resolvedDashboard.title = $scope.model.title;
       resolvedDashboard.public = $scope.model.public;
+      resolvedDashboard.theme = $scope.model.theme;
       resolvedDashboard.$save(function (res) {
         $modalInstance.close(true);
       });
