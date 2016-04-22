@@ -55,7 +55,7 @@ LDAP_CONTROLLER=ldap://national.example.gov.uk
 
 ## Diagrams
 
-![Widget Methods](https://github.com/stunjelly/openboard/blob/develop/docs/img/widget-methods.svg)
+![Widget Methods](https://cdn.rawgit.com/stunjelly/openboard/develop/docs/img/widget-methods.svg)
 
 ##### Validate Command
 
