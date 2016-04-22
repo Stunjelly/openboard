@@ -52,3 +52,15 @@ MYSQL_PASS=root
 LDAP_DOMAIN=national
 LDAP_CONTROLLER=ldap://national.example.gov.uk
 ```
+
+## Diagrams
+
+![Widget Methods](https://github.com/stunjelly/openboard/blob/develop/docs/img/widget-methods.svg)
+
+##### Validate Command
+
+In this stage we check we ensure the socket has correct access and check the DB for a recent cache (in case another client has previously requested it).
+
+##### Validate Data
+
+We need to make sure that the data received from the external source is a valid format for the widget type.
